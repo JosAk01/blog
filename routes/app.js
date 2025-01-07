@@ -21,12 +21,12 @@ router.get('/signup', (req, res) => {
 
 // Admin Page
 router.get('/admin', isAuthenticated, authorize('admin'), (req, res) => {
-  res.render('admin');
+  res.render('admin', { session: req.session });
 });
 
 // Editor Page
 router.get('/editor', isAuthenticated, authorize('editor'), (req, res) => {
-  res.render('editor');
+  res.render('editor', { session: req.session });
 });
 
 // User Page (accessible to all logged-in users)
