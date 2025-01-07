@@ -1,0 +1,21 @@
+[
+  {
+      "username": "Yemi",
+      "email": "yemi@mail.com",
+      "password": "yemipassword1",
+      "role": "admin"
+  },
+  {
+      "username": "Kola",
+      "email": "kola@mail.com",
+      "password": "kolapassword2",
+      "role": "reader"
+  },
+  {
+      "username": "Bolu",
+      "email": "bolu@mail.com",
+      "password": "bolupassword3",
+      "role": "author"
+  }
+
+]
