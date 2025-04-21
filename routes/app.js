@@ -27,25 +27,25 @@ router.get('/admin', isAuthenticated, authorize('admin'), (req, res) => {
 });
 
 // Editor Page
-router.get('/editor', isAuthenticated, authorize('editor'), (req, res) => {
-  res.render('editor', { session: req.session });
+router.get('/author', isAuthenticated, authorize('author'), (req, res) => {
+  res.render('author', { session: req.session });
 });
 
 // User Page (accessible to all logged-in users)
-router.get('/user', isAuthenticated, authorize('user'), (req, res) => {
-  res.render('user', { session: req.session });
+router.get('/user', isAuthenticated, authorize('user'), async (req, res) => {
+  try {
+    const [blogs] = await pool.query('SELECT * FROM blogs ORDER BY created_at DESC');
 
-  // try {
-  //   const [users] = await pool.query('SELECT * FROM users WHERE role = ?', ['user']);
-  //   res.render('user', {
-  //     name: req.session.name.user,
-  //     user, // pass the users array to EJS
-  //   });
-  // } catch (err) {
-  //   console.error('Error fetching user:', err);
-  //   res.status(500).send('Internal Server Error');
-  // }
+    res.render('user', {
+      session: req.session,
+      blogs, //
+    });
+  } catch (err) {
+    console.error('Error loading blogs for user page:', err.message);
+    res.status(500).send('Something went wrong while loading the user dashboard.');
+  }
 });
+
 
 // Signup Logic
 router.post('/signup', async (req, res) => {
@@ -97,5 +97,52 @@ router.post('/login', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+// Route to show all blogs (e.g., homepage or user dashboard)
+router.get('/blogs', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM blogs ORDER BY created_at DESC');
+    res.render('user', { blogs: rows }); // Make sure you're passing `blogs`
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error loading blogs');
+  }
+});
+
+
+// blogRoutes.js
+router.get('/blog/:slug', async (req, res) => {
+  const { slug } = req.params;
+
+  try {
+    const [rows] = await pool.query('SELECT * FROM blogs WHERE slug = ?', [slug]);
+
+    if (rows.length === 0) {
+      return res.status(404).render('404');
+    }
+
+    const blog = rows[0];
+    res.render('blog-detail', { blog });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error loading blog');
+  }
+});
+
+// Setting Page
+router.get('/setting', (req, res) => {
+  res.render('setting'); /*organize to do jehovahs will*/
+});
+
+// Calender Page
+router.get('/calender', (req, res) => {
+  res.render('calender'); /*organize to do jehovahs will*/
+});
+
+// Map Page
+router.get('/map', (req, res) => {
+  res.render('map'); /*organize to do jehovahs will*/
+});
+
 
 module.exports = router;

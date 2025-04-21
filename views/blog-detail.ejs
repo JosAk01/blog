@@ -1,0 +1,70 @@
+<style>
+  .blog-detail-container {
+  max-width: 750px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.08);
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.blog-meta {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 2rem;
+}
+
+.blog-meta span {
+  margin-right: 1rem;
+}
+
+.blog-body p {
+  margin-bottom: 1.5rem;
+}
+
+.blog-body img {
+  max-width: 100%;
+  margin: 1rem 0;
+  border-radius: 8px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #0056b3;
+}
+
+</style>
+<section class="blog-detail-container">
+  <div class="blog-header">
+    <h1 class="blog-title"><%= blog.title %></h1>
+    <p class="blog-meta">
+      <span class="blog-date">📅 <%= new Date(blog.created_at).toDateString() %></span>
+      <span class="blog-category">🏷️ <%= blog.category %></span>
+    </p>
+  </div>
+
+  <div class="blog-body">
+    <%- blog.content %> 
+  </div>
+
+  <div class="blog-footer">
+    <a href="/user" class="back-link">← Back to all posts</a>
+  </div>
+</section>
+

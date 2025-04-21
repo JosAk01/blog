@@ -98,7 +98,7 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="uil-setting"></i> Settings</a>
+        <a href="/setting"><i class="uil-setting"></i> Settings</a>
       </li>
       <li class="has-dropdown">
         <a href="#"><i class="uil-chart-pie-alt"></i> Components</a>
@@ -149,14 +149,30 @@
       <section class="category">
         <h2>Travels</h2>
         <div class="post-grid">
-          <article class="post-card" onclick="window.location.href='#'">
+          <% blogs.forEach(blog => { %>
+            <article class="post-card" onclick="window.location.href='/blog/<%= blog.slug %>'">
+              <h3><%= blog.title %></h3>
+              <p><%= blog.content %></p>
+              <div class="card-footer">
+                <span class="tag"><%= blog.category %></span>
+                <span class="date"><%= new Date(blog.created_at).toDateString() %></span>
+              </div>            
+            </article>
+          <% }); %>
+        </div>
+      </section>
+      
+      <!-- <section class="category">
+        <h2>Travels</h2>
+        <div class="post-grid">
+          <article class="post-card" onclick="window.location.href='/blog-detail'">
             <h3>A Guide To Mri Scans</h3>
-            <p>Do you want to download free song for ipod? If so, reading this article could save you from</p>
+            <p>Do you want to download free song for ipod? If so, reading this article could save you from...</p>
             <div class="card-footer">
               <span class="tag">UX</span>
               <span class="date">21 Oct 2018</span>
             </div>            
-          </article>
+          </article> -->
 
           <!-- <article class="post-card">
             <h3>What Is Hdcp</h3>
