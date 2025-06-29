@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Settings</title>
+</head>
+<body>
+  <h1>Welcome to Your Settings, <%= session.user.name %></h1>
+
+  <section class="settings-container">
+    <h2>User Settings</h2>
+  
+    <!-- Avatar Upload -->
+    <!-- <form action="/user/settings/avatar" method="POST" enctype="multipart/form-data" class="setting-form">
+      <label for="avatar">Change Avatar</label>
+      <input type="file" name="avatar" id="avatar" accept="image/*" required>
+      <button type="submit">Upload</button>
+  
+      <% if (session.user.avatar) { %>
+        <div class="avatar-preview">
+          <img src="/uploads/<%= session.user.avatar %>" alt="Avatar">
+        </div>
+      <% } %>
+    </form> -->
+  
+    <form action="/user/settings/update" method="POST">
+        <label for="name">Change Name:</label>
+        <input type="text" name="name" value="<%= session.user.name %>" required />
+    
+        <label for="email">Change Email:</label>
+        <input type="email" name="email" value="<%= session.user.email %>" required />
+    
+        <label for="password">Change Password</label>
+        <input type="password" name="password" value="<%= session.user.password %>" required>
+
+        <button type="submit">Update Settings</button>
+      </form>
+
+  </section>
+  
+</body>
+</html>

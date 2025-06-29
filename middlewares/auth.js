@@ -10,10 +10,11 @@ function isAuthenticated(req, res, next) {
 
 function authorize(...roles) {
   return (req, res, next) => {
-    if (roles.includes(req.session.user.role)) {
+    const userRole = req.session.user?.role;
+    if (userRole && allowedRoles.includes(userRole)) {
       return next();
     }
-    res.status(403).send('You do not have permission to access this resource.');
+    return res.status(403).send('Access Denied');
   };
 }
 

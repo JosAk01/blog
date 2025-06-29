@@ -32,7 +32,7 @@
     <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
       <div class="ms-2">
         <h5 class="fs-6 mb-0">
-          <a class="text-decoration-none" href="#">Pelumi Akinremi</a>
+          <a class="text-decoration-none" href="#"><%= session.user.name %></a>
         </h5>
         <p class="mt-1 mb-0">Lorem ipsum dolor sit amet consectetur.</p>
       </div>
@@ -81,7 +81,7 @@
     <!-- Welcome Message -->
     <div class="welcome">
       <h1>Welcome to Dashboard</h1>
-      <p>Hello Pelumi Akinremi, welcome to your awesome dashboard!</p>
+      <p>Hello <%= session.user.name %>, welcome to your awesome dashboard!</p>
     </div>
     
   </div> 

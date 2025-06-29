@@ -99,10 +99,10 @@ router.post('/login', async (req, res) => {
 });
 
 // Route to show all blogs (e.g., homepage or user dashboard)
-router.get('/blogs', async (req, res) => {
+router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM blogs ORDER BY created_at DESC');
-    res.render('user', { blogs: rows }); // Make sure you're passing `blogs`
+    res.render('user', { blogs: rows, session: req.session });
   } catch (err) {
     console.error(err);
     res.status(500).send('Error loading blogs');
@@ -130,9 +130,31 @@ router.get('/blog/:slug', async (req, res) => {
 });
 
 // Setting Page
-router.get('/setting', (req, res) => {
-  res.render('setting'); /*organize to do jehovahs will*/
+router.get('/user/settings', (req, res) => {
+  res.render('user-settings', {
+    session: req.session
+  });
 });
+
+router.post('/user/settings/update', isAuthenticated, authorize('user'), async (req, res) => {
+  const { name, email, password } = req.body;
+  const userId = req.session.user.id;
+
+  try {
+    await pool.query('UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?', [name, email, password, userId]);
+
+    // Update session
+    req.session.user.name = name;
+    req.session.user.email = email;
+    req.session.user.password = password;
+
+    res.redirect('/user/settings');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error updating settings');
+  }
+});
+
 
 // Calender Page
 router.get('/calender', (req, res) => {

@@ -10,7 +10,7 @@
     <nav>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <% if (!session.user) { %>
+        <% if (session.user) { %>
           <li><a href="/login">Login</a></li>
           <li><a href="/signup">Signup</a></li>
         <% } else { %>
@@ -32,7 +32,7 @@
     <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
       <div class="ms-2">
         <h5 class="fs-6 mb-0">
-          <a class="text-decoration-none" href="#">Jone Doe</a>
+          <a class="text-decoration-none" href="#"><%= session.user.name %></a>
         </h5>
         <p class="mt-1 mb-0">Lorem ipsum dolor sit amet consectetur.</p>
       </div>
@@ -45,83 +45,22 @@
     <br>
     <ul class="categories list-unstyled">
       <li class="has-dropdown">
-       <a href="#" class="active"><i class="uil-estate fa-fw"></i> Dashboard</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#"><i class="uil-folder"></i> File manager</a>
-      </li>
-      <li class="has-dropdown">
        <a href="#"><i class="uil-calendar-alt"></i> Calendar</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
       </li>
       <li class="has-dropdown">
        <a href="#"><i class="uil-envelope-download fa-fw"></i> Mailbox</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
       </li>
       <li class="has-dropdown">
        <a href="#"><i class="uil-shopping-cart-alt"></i> Ecommerce</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
       </li>
       <li class="has-dropdown">
        <a href="#"><i class="uil-bag"></i> Projects</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
       </li>
       <li>
-        <a href="/setting"><i class="uil-setting"></i> Settings</a>
+        <a href="/user/settings"><i class="uil-setting"></i> Settings</a>
       </li>
       <li class="has-dropdown">
-        <a href="#"><i class="uil-chart-pie-alt"></i> Components</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
-      </li>
-      <li class="has-dropdown">
-        <a href="#"><i class="uil-panel-add"></i> Charts</a>
-        <ul class="sidebar-dropdown list-unstyled">
-          <li><a href="#">Lorem ipsum</a></li>
-          <li><a href="#">ipsum dolor</a></li>
-          <li><a href="#">dolor ipsum</a></li>
-          <li><a href="#">amet consectetur</a></li>
-          <li><a href="#">ipsum dolor sit</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#"><i class="uil-map-marker"></i> Maps</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>
   </aside>
@@ -145,7 +84,6 @@
         </div>
       </header> -->
 
-      <!-- Posts Section -->
       <section class="category">
         <h2>Travels</h2>
         <div class="post-grid">
