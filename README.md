@@ -52,8 +52,8 @@ A full-featured blog web application built with **Node.js**, **Express**, **MySQ
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/blog-platform.git
-   cd blog-platform
+   git clone https://github.com/JosAk01/blog.git
+   cd blog.git
 ````
 
 2. **Install dependencies:**
