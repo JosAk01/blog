@@ -50,25 +50,25 @@ A full-featured blog web application built with **Node.js**, **Express**, **MySQ
 
 ## 🔧 Setup Instructions
 
-1. **Clone the repository:**
+1. Clone the repository:
    ```bash
    git clone https://github.com/JosAk01/blog.git
    cd blog.git
 ````
 
-2. **Install dependencies:**
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. **Configure database:**
+3. Configure database:
 
    * Create a MySQL database (e.g., `blog_app`)
    * Update your DB credentials in `config/database.js` or `.env`
 
 
-5. **Start the server:**
+5. Start the server:
 
    ```bash
    npm start
@@ -78,7 +78,7 @@ A full-featured blog web application built with **Node.js**, **Express**, **MySQ
 
 ---
 
-## ✅ Future Improvements
+ ✅ Future Improvements
 
 * Add image upload for posts
 * WYSIWYG editor for content creation
@@ -87,13 +87,13 @@ A full-featured blog web application built with **Node.js**, **Express**, **MySQ
 
 ---
 
-## 🤝 Contributing
+ 🤝 Contributing
 
 Contributions are welcome! Feel free to fork this repo and submit a pull request.
 
 ---
 
-## 📄 License
+ 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
