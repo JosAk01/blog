@@ -8,7 +8,7 @@ function isAuthenticated(req, res, next) {
   res.status(401).send('You need to log in first.');
 }
 
-function authorize(...roles) {
+function authorize(...allowedRoles) {
   return (req, res, next) => {
     const userRole = req.session.user?.role;
     if (userRole && allowedRoles.includes(userRole)) {
