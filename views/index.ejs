@@ -1,5 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revision — Heartfelt Reflections</title>
+
+  <!-- your global styles -->
+  <link rel="stylesheet" href="/public/css/styles.css" />
+
+  <!-- icons (optional) -->
+  <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body class="landing">
+
 <%- include('partials/header'); -%>
-  <h1>
-    Welcome home <%= name %>, your age is <%= age %>
-  </h1>
-<%- include('partials/footer'); -%>
+
+  <!-- Hero -->
+  <section class="lp-hero">
+    <div class="lp-container">
+      <h1 class="lp-hero-title">
+        Heartfelt <span class="highlight">Reflections</span>:
+        Stories of Love,<br/> Loss, and Growth
+      </h1>
+      <p class="lp-hero-sub">
+        Revision welcomes you to a source for fresh perspectives! Explore
+        curated content to enlighten, entertain, and engage global readers.
+      </p>
+    </div>
+  </section>
+
+  <!-- Trending Topics -->
+  <section class="lp-topics">
+    <div class="lp-container">
+      <p class="lp-topics-title">Explore Trending Topics</p>
+      <div class="lp-pill-row">
+        <a class="lp-pill" href="#"><i class="uil uil-circuit"></i> Technology</a>
+        <a class="lp-pill" href="#"><i class="uil uil-suitcase-alt"></i> Travel</a>
+        <a class="lp-pill" href="#"><i class="uil uil-football"></i> Sport</a>
+        <a class="lp-pill" href="#"><i class="uil uil-briefcase-alt"></i> Business</a>
+        <a class="lp-pill" href="#"><i class="uil uil-presentation-line"></i> Management</a>
+        <a class="lp-pill" href="#"><i class="uil uil-fire"></i> Trends</a>
+        <a class="lp-pill" href="#"><i class="uil uil-rocket"></i> Startups</a>
+        <a class="lp-pill" href="#"><i class="uil uil-newspaper"></i> News</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Grid -->
+  <main class="lp-container lp-grid">
+    <!-- Posts -->
+    <section class="lp-posts">
+      <!-- Card -->
+      <article class="post-card">
+        <a class="thumb" href="/blog/how-tech-shapes-the-future-of-work">
+          <div class="thumb-img" aria-hidden="true"></div>
+          <div class="chip-row">
+            <span class="chip">Business</span>
+            <span class="chip">News</span>
+          </div>
+        </a>
+        <div class="post-meta">
+          <a class="author" href="#">Ethan Caldwell</a>
+          <span class="dot">•</span>
+          <time datetime="2024-10-16">October 16, 2024</time>
+        </div>
+        <h3 class="post-title">
+          <a href="/blog/how-tech-shapes-the-future-of-work">How Tech Shapes the Future of Work in 2024</a>
+        </h3>
+        <p class="post-excerpt">
+          In today’s ever-evolving world, storytelling has become a powerful tool for connection…
+        </p>
+      </article>
+
+      <!-- Card -->
+      <article class="post-card">
+        <a class="thumb" href="/blog/future-of-work-tech-and-remote-trends">
+          <div class="thumb-img alt" aria-hidden="true"></div>
+          <div class="chip-row">
+            <span class="chip">Sport</span>
+            <span class="chip">Travel</span>
+          </div>
+        </a>
+        <div class="post-meta">
+          <a class="author" href="#">Ethan Caldwell</a>
+          <span class="dot">•</span>
+          <time datetime="2024-09-29">September 29, 2024</time>
+        </div>
+        <h3 class="post-title">
+          <a href="/blog/future-of-work-tech-and-remote-trends">The Future of Work: Tech and Remote Trends</a>
+        </h3>
+        <p class="post-excerpt">
+          Why 2024 is set to be a pivotal year for technology and its impact on the industry…
+        </p>
+      </article>
+
+      <!-- Another row -->
+      <article class="post-card">
+        <a class="thumb" href="#">
+          <div class="thumb-img" aria-hidden="true"></div>
+          <div class="chip-row">
+            <span class="chip">News</span>
+            <span class="chip">Trends</span>
+          </div>
+        </a>
+        <div class="post-meta">
+          <a class="author" href="#">Ethan Caldwell</a>
+          <span class="dot">•</span>
+          <time datetime="2024-08-21">August 21, 2024</time>
+        </div>
+        <h3 class="post-title"><a href="#">Designing Playful Gadgets in 2024</a></h3>
+        <p class="post-excerpt">A look into product design that blends nostalgia and modern usability…</p>
+      </article>
+
+      <article class="post-card">
+        <a class="thumb" href="#">
+          <div class="thumb-img alt" aria-hidden="true"></div>
+          <div class="chip-row">
+            <span class="chip">Business</span>
+          </div>
+        </a>
+        <div class="post-meta">
+          <a class="author" href="#">Ethan Caldwell</a>
+          <span class="dot">•</span>
+          <time datetime="2024-07-03">July 3, 2024</time>
+        </div>
+        <h3 class="post-title"><a href="#">Building Brands with Delight</a></h3>
+        <p class="post-excerpt">How small teams create big feelings with consistent storytelling…</p>
+      </article>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="lp-sidebar">
+      <section class="about-card">
+        <h4 class="aside-title">About</h4>
+        <div class="about-author">
+          <img src="https://i.pravatar.cc/96?img=12" alt="Author avatar" />
+          <div>
+            <p class="name">Ethan Caldwell</p>
+            <p class="role">Reflective Blogger</p>
+          </div>
+        </div>
+        <p class="about-text">
+          Ethan shares thoughtful insights on life, culture, and personal growth. His work explores
+          creativity and experience, offering readers unique perspectives.
+        </p>
+        <p class="about-loc"><i class="uil uil-location-point"></i> Paris, France</p>
+        <div class="about-social">
+          <a href="#"><i class="uil uil-dribbble"></i></a>
+          <a href="#"><i class="uil uil-instagram"></i></a>
+          <a href="#"><i class="uil uil-linkedin"></i></a>
+        </div>
+      </section>
+
+      <section class="featured-card">
+        <h4 class="aside-title">Featured Posts</h4>
+        <a class="featured-item" href="#">
+          <div class="mini-thumb"></div>
+          <div>
+            <p class="mini-kicker">Management</p>
+            <p class="mini-title">Shaping 2024 Teams</p>
+          </div>
+        </a>
+        <a class="featured-item" href="#">
+          <div class="mini-thumb alt"></div>
+          <div>
+            <p class="mini-kicker">Business</p>
+            <p class="mini-title">Pricing With Purpose</p>
+          </div>
+        </a>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Newsletter -->
+  <section class="lp-newsletter">
+    <div class="lp-container">
+      <h2>Subscribe to our Newsletter</h2>
+      <p>Get the latest posts delivered right to your email.</p>
+      <form class="nl-form" action="#" method="post">
+        <input type="email" name="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <small>Pure inspiration, zero spam ✨</small>
+    </div>
+  </section>
+
+  <%- include('partials/footer'); -%>
+
+  <script>
+    // tiny theme toggle (optional)
+    const btn = document.getElementById('themeToggle');
+    btn?.addEventListener('click', () => document.body.classList.toggle('dark'));
+  </script>
+</body>
+</html>
+
