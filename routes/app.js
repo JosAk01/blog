@@ -102,12 +102,24 @@ router.post('/login', async (req, res) => {
 router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM blogs ORDER BY created_at DESC');
-    res.render('user', { blogs: rows, session: req.session });
+
+    let view;
+    if (req.session.user.role === 'admin') {
+      view = 'adminBlogs'; // admin-specific EJS
+    } else if (req.session.user.role === 'author') {
+      view = 'authorBlogs'; // author-specific EJS
+    } else {
+      view = 'user'; // user-specific EJS
+    }
+
+    res.render(view, { blogs: rows, session: req.session });
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Error loading blogs');
   }
 });
+
 
 
 // blogRoutes.js
