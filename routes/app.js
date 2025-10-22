@@ -101,24 +101,54 @@ router.post('/login', async (req, res) => {
 // Route to show all blogs (e.g., homepage or user dashboard)
 router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM blogs ORDER BY created_at DESC');
+    // Get query parameter (?status=draft or ?status=published)
+    const status = req.query.status || 'all';
+    let query = 'SELECT * FROM blogs';
+    const params = [];
+
+    // Apply filtering if specified
+    if (status === 'draft') {
+      query += ' WHERE status = ?';
+      params.push('draft');
+    } else if (status === 'published') {
+      query += ' WHERE status = ?';
+      params.push('published');
+    }
+
+    query += ' ORDER BY created_at DESC';
+
+    const [rows] = await pool.query(query, params);
+
+    const groupedBlogs = rows.reduce((groups, blog) => {
+      const category = blog.category || 'Uncategorized';
+      if (!groups[category]) groups[category] = [];
+      groups[category].push(blog);
+      return groups;
+    }, {});
 
     let view;
     if (req.session.user.role === 'admin') {
-      view = 'adminBlogs'; // admin-specific EJS
+      view = 'adminBlogs';
     } else if (req.session.user.role === 'author') {
-      view = 'authorBlogs'; // author-specific EJS
+      view = 'authorBlogs';
     } else {
-      view = 'user'; // user-specific EJS
+      view = 'user';
     }
 
-    res.render(view, { blogs: rows, session: req.session });
+    res.render(view, {
+      blogs: rows,
+      groupedBlogs,
+      session: req.session,
+      status,
+    });
 
   } catch (err) {
-    console.error(err);
+    console.error('Error loading blogs:', err);
     res.status(500).send('Error loading blogs');
   }
 });
+
+
 
 
 

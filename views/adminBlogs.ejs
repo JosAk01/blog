@@ -54,187 +54,91 @@
   </aside>
 
   <div class="main-content">
-     <!-- <header class="posts-header">
-        <h1>Posts</h1>
-        <div class="filters">
-          <nav class="status-tabs">
-            <a href="#" class="active">ALL</a>
-            <a href="#">DRAFTS</a>
-            <a href="#">PUBLISHED</a>
-          </nav>
-          <div class="sort">
-            <label>SORT BY</label>
-            <select>
-              <option value="tags">TAGS</option>
-              <option value="date">DATE</option>
-            </select>
-          </div>
-        </div>
-      </header> -->
+     <header class="posts-header">
+  <h1>Posts</h1>
+  <div class="filters">
+    <nav class="status-tabs">
+      <a href="/blogs" class="<%= status === 'all' ? 'active' : '' %>">ALL</a>
+      <a href="/blogs?status=draft" class="<%= status === 'draft' ? 'active' : '' %>">DRAFTS</a>
+      <a href="/blogs?status=published" class="<%= status === 'published' ? 'active' : '' %>">PUBLISHED</a>
+    </nav>
 
-      <section class="category">
-        <h2>Travels</h2>
-        <div class="post-grid">
-          <% blogs.forEach(blog => { %>
-            <article class="post-card" onclick="window.location.href='/blog/<%= blog.slug %>'">
-              <h3><%= blog.title %></h3>
-              <p><%= blog.content %></p>
-              <div class="card-footer">
-                <span class="tag"><%= blog.category %></span>
-                <span class="date"><%= new Date(blog.created_at).toDateString() %></span>
-              </div>            
-            </article>
-          <% }); %>
-        </div>
-      </section>
-      
-      <!-- <section class="category">
-        <h2>Travels</h2>
-        <div class="post-grid">
-          <article class="post-card" onclick="window.location.href='/blog-detail'">
-            <h3>A Guide To Mri Scans</h3>
-            <p>Do you want to download free song for ipod? If so, reading this article could save you from...</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>            
-          </article> -->
+    <div class="sort">
+      <label>SORT BY</label>
+      <select onchange="window.location.href='/blogs?sort=' + this.value">
+        <option value="tags">TAGS</option>
+        <option value="date">DATE</option>
+      </select>
+    </div>
+  </div>
+</header>
 
-          <!-- <article class="post-card">
-            <h3>What Is Hdcp</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
+
+<script>
+  const tabs = document.querySelectorAll('.status-tabs .tab');
+  const sortSelect = document.getElementById('sortSelect');
+  const blogs = Array.from(document.querySelectorAll('.blog'));
+
+  // Handle tab filtering
+  tabs.forEach(tab => {
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const status = tab.dataset.status;
+      blogs.forEach(blog => {
+        blog.style.display =
+          status === 'all' || blog.dataset.status === status ? 'block' : 'none';
+      });
+    });
+  });
+
+  // Handle sorting
+  sortSelect.addEventListener('change', () => {
+    const sortBy = sortSelect.value;
+    const blogList = document.getElementById('blogList');
+    let sorted;
+
+    if (sortBy === 'date') {
+      sorted = blogs.sort((a, b) =>
+        new Date(b.dataset.date) - new Date(a.dataset.date)
+      );
+    } else if (sortBy === 'tags') {
+      sorted = blogs.sort((a, b) =>
+        a.dataset.tags.localeCompare(b.dataset.tags)
+      );
+    }
+
+    blogList.innerHTML = '';
+    sorted.forEach(blog => blogList.appendChild(blog));
+  });
+</script>
+
+
+      <% if (groupedBlogs && Object.keys(groupedBlogs).length > 0) { %>
+        <% Object.keys(groupedBlogs).forEach(category => { %>
+          <section class="category">
+            <h2><%= category %></h2>
+            <div class="post-grid">
+              <% groupedBlogs[category].forEach(blog => { %>
+                <article class="post-card" onclick="window.location.href='/blog/<%= blog.slug %>'">
+                  <h3><%= blog.title %></h3>
+                  <p><%= blog.content.slice(0, 120) %>...</p>
+                  <div class="card-footer">
+                    <span class="tag"><%= blog.category %></span>
+                    <span class="date"><%= new Date(blog.created_at).toDateString() %></span>
+                  </div>
+                </article>
+              <% }) %>
             </div>
-          </article>
+          </section>
+        <% }) %>
+      <% } else { %>
+        <p>No blogs yet.</p>
+      <% } %>
 
-          <article class="post-card">
-            <h3>Sony Laptops Are Still Part Of The Sony Family</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="category">
-        <h2>Design</h2>
-        <div class="post-grid">
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>How Does An Lcd Screen Work</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Cleaning And Organizing Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Choosing The Best Audio Player Software For Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Make Myspace Your Best Designed Space</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="category">
-        <h2>Arts</h2>
-        <div class="post-grid">
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>How Does An Lcd Screen Work</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Cleaning And Organizing Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Choosing The Best Audio Player Software For Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Make Myspace Your Best Designed Space</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article> -->
         </div>
       </section>
     
