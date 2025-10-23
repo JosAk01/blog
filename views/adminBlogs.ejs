@@ -27,7 +27,7 @@
     <br>
     <ul class="categories list-unstyled">
       <li>
-       <a href="#" class="active"><i class="uil-estate fa-fw"></i> Dashboard</a>
+       <a href="/admin" class="active"><i class="uil-estate fa-fw"></i> Dashboard</a>
       </li>
       <li>
         <a href="/blogs"><i class="uil-book"></i> Blogs</a>
@@ -54,24 +54,24 @@
   </aside>
 
   <div class="main-content">
-     <header class="posts-header">
-  <h1>Posts</h1>
-  <div class="filters">
-    <nav class="status-tabs">
-      <a href="/blogs" class="<%= status === 'all' ? 'active' : '' %>">ALL</a>
-      <a href="/blogs?status=draft" class="<%= status === 'draft' ? 'active' : '' %>">DRAFTS</a>
-      <a href="/blogs?status=published" class="<%= status === 'published' ? 'active' : '' %>">PUBLISHED</a>
-    </nav>
+      <header class="posts-header">
+        <h1>Posts</h1>
+        <div class="filters">
+          <nav class="status-tabs">
+            <a href="/blogs" class="<%= status === 'all' ? 'active' : '' %>">ALL</a>
+            <a href="/blogs?status=draft" class="<%= status === 'draft' ? 'active' : '' %>">DRAFTS</a>
+            <a href="/blogs?status=published" class="<%= status === 'published' ? 'active' : '' %>">PUBLISHED</a>
+          </nav>
 
-    <div class="sort">
-      <label>SORT BY</label>
-      <select onchange="window.location.href='/blogs?sort=' + this.value">
-        <option value="tags">TAGS</option>
-        <option value="date">DATE</option>
-      </select>
-    </div>
-  </div>
-</header>
+          <div class="sort">
+            <label>SORT BY</label>
+            <select id="sortSelect" onchange="handleSortChange(this)">
+              <option value="date" <%= sort === 'date' ? 'selected' : '' %>>DATE</option>
+              <option value="tags" <%= sort === 'tags' ? 'selected' : '' %>>TAGS</option>
+            </select>
+          </div>
+        </div>
+      </header>
 
 
 <script>
@@ -110,10 +110,17 @@
         a.dataset.tags.localeCompare(b.dataset.tags)
       );
     }
+    
 
     blogList.innerHTML = '';
     sorted.forEach(blog => blogList.appendChild(blog));
   });
+  function handleSortChange(select) {
+    const sort = select.value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status') || 'all';
+    window.location.href = `/blogs?status=${status}&sort=${sort}`;
+  }
 </script>
 
 

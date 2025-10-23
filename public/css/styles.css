@@ -234,9 +234,11 @@ header nav {
 
 /* Hover effect */
 .sidebar li a:hover {
-  background-color: #555;
+  background-color: #0d6efd;
   color: #fff;
+  transition: background-color 0.3s, color 0.3s;
 }
+
 .sidebar i {
   margin-right: 10px;
 }
@@ -299,29 +301,152 @@ header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem 0;
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.5rem;
+  background: #f8f9fc;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .posts-header h1 {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
   margin: 0;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+.posts-header .filters {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.status-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .status-tabs a {
-  margin-right: 1rem;
   text-decoration: none;
-  color: #888;
-  font-weight: 500;
+  font-weight: 600;
+  color: #6c757d;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.status-tabs a:hover {
+  background: #e9f1ff;
+  color: #0d6efd;
 }
 
 .status-tabs .active {
-  color: #000;
+  background: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+  box-shadow: 0 2px 5px rgba(13, 110, 253, 0.2);
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort label {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 600;
 }
 
 .sort select {
-  padding: 4px 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-weight: 500;
+  transition: border 0.3s ease;
 }
+
+.sort select:focus {
+  border-color: #0d6efd;
+  outline: none;
+}
+.tag {
+  background-color: #0d6efd;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+}
+
+
+/* 🌍 RESPONSIVE BEHAVIOR */
+@media (max-width: 768px) {
+  .posts-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.2rem;
+  }
+
+  .posts-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .status-tabs {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .sort {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sort select {
+    width: 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .posts-header {
+    padding: 1rem;
+  }
+
+  .posts-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .status-tabs a {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+
+  .sort label {
+    font-size: 0.85rem;
+  }
+
+  .sort select {
+    width: 100%;
+  }
+}
+
 
 .category h2 {
   margin-top: 2rem;
@@ -345,8 +470,9 @@ header nav {
 
 .post-card:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-left: 3px solid #0d6efd;
   cursor: pointer;
 }
 

@@ -101,24 +101,28 @@ router.post('/login', async (req, res) => {
 // Route to show all blogs (e.g., homepage or user dashboard)
 router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), async (req, res) => {
   try {
-    // Get query parameter (?status=draft or ?status=published)
     const status = req.query.status || 'all';
+    const sort = req.query.sort || 'date'; // default sort
+
     let query = 'SELECT * FROM blogs';
     const params = [];
 
-    // Apply filtering if specified
-    if (status === 'draft') {
+    // Filter by status
+    if (status === 'draft' || status === 'published') {
       query += ' WHERE status = ?';
-      params.push('draft');
-    } else if (status === 'published') {
-      query += ' WHERE status = ?';
-      params.push('published');
+      params.push(status);
     }
 
-    query += ' ORDER BY created_at DESC';
+    // Sorting
+    if (sort === 'tags') {
+      query += ' ORDER BY tags ASC';
+    } else {
+      query += ' ORDER BY created_at DESC';
+    }
 
     const [rows] = await pool.query(query, params);
 
+    // Optional: Group by category
     const groupedBlogs = rows.reduce((groups, blog) => {
       const category = blog.category || 'Uncategorized';
       if (!groups[category]) groups[category] = [];
@@ -126,6 +130,7 @@ router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), asyn
       return groups;
     }, {});
 
+    // Choose correct view
     let view;
     if (req.session.user.role === 'admin') {
       view = 'adminBlogs';
@@ -140,6 +145,7 @@ router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), asyn
       groupedBlogs,
       session: req.session,
       status,
+      sort,
     });
 
   } catch (err) {
@@ -147,6 +153,7 @@ router.get('/blogs', isAuthenticated, authorize('admin', 'author', 'user'), asyn
     res.status(500).send('Error loading blogs');
   }
 });
+
 
 
 
