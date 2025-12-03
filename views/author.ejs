@@ -1,6 +1,101 @@
 <link rel="stylesheet" href="/css/styles.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet">
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .stat-card h3 {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .stat-card .number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  .create-btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: #27ae60;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+  }
+  .create-btn:hover {
+    background: #229954;
+  }
+  .blogs-table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  th {
+    background: #f8f9fa;
+    font-weight: 600;
+  }
+  .status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .status-published {
+    background: #d4edda;
+    color: #155724;
+  }
+  .status-draft {
+    background: #fff3cd;
+    color: #856404;
+  }
+  .action-btns {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .btn-sm {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-view {
+    background: #3498db;
+    color: white;
+  }
+  .btn-edit {
+    background: #f39c12;
+    color: white;
+  }
+  .btn-delete {
+    background: #e74c3c;
+    color: white;
+  }
+</style>
+
 <header>
   <div class="container">
     <div class="logo">
@@ -10,13 +105,8 @@
     <nav>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <% if (!session.author) { %>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/signup">Signup</a></li>
-        <% } else { %>
-          <li><a href="/author">Welcome, <%= session.author.name %></a></li>
-          <li><a href="#">Logout</a></li>
-        <% } %>
+        <li><a href="/author">Dashboard</a></li>
+        <li><a href="/logout">Logout</a></li>
       </ul>
       <button class="hamburger" aria-label="Toggle navigation">
         <span></span>
@@ -26,64 +116,114 @@
     </nav>
   </div>
 </header>
+
 <div class="content-wrapper">
   <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left" id="show-side-navigation1">
-    <!-- <i class="uil-bars close-aside d-md-none d-lg-none" data-close="show-side-navigation1"></i> -->
     <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
       <div class="ms-2">
         <h5 class="fs-6 mb-0">
           <a class="text-decoration-none" href="#"><%= session.user.name %></a>
         </h5>
-        <p class="mt-1 mb-0">Lorem ipsum dolor sit amet consectetur.</p>
+        <p class="mt-1 mb-0">Author Dashboard</p>
       </div>
     </div>
     <hr>
     <br>
-    <div class="search position-relative text-center px-4 py-3 mt-2">
-      <input type="text" class="form-control w-100 border-0 bg-transparent" placeholder="Search here">
-    </div>
-    <br>
     <ul class="categories list-unstyled">
-      <li class="has-dropdown">
-       <a href="#" class="active"><i class="uil-estate fa-fw"></i> Dashboard</a>
+      <li>
+       <a href="/author" class="active"><i class="uil-estate fa-fw"></i> Dashboard</a>
       </li>
       <li>
-        <a href="#"><i class="uil-folder"></i> File manager</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-calendar-alt"></i> Calendar</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-envelope-download fa-fw"></i> Mailbox</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-shopping-cart-alt"></i> Ecommerce</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-bag"></i> Projects</a>
+        <a href="/author/create"><i class="uil-plus-circle"></i> Create Post</a>
       </li>
       <li>
-        <a href="/setting"><i class="uil-setting"></i> Settings</a>
-      </li>
-      <li class="has-dropdown">
-        <a href="#"><i class="uil-chart-pie-alt"></i> Components</a>
-      </li>
-      <li class="has-dropdown">
-        <a href="#"><i class="uil-panel-add"></i> Charts</a>
-      </li>
-      <li>
-        <a href="#"><i class="uil-map-marker"></i> Maps</a>
+        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>
   </aside>
 
   <div class="main-content">
-    <!-- Welcome Message -->
     <div class="welcome">
-      <h1>Welcome to Dashboard</h1>
-      <p>Hello <%= session.user.name %>, welcome to your awesome dashboard!</p>
+      <h1>Author Dashboard</h1>
+      <p>Welcome back, <%= session.user.name %>! Manage your blog posts here.</p>
     </div>
-    
-  </div> 
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Posts</h3>
+        <div class="number"><%= stats.total_posts %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Published</h3>
+        <div class="number"><%= stats.published %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Drafts</h3>
+        <div class="number"><%= stats.drafts %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Likes</h3>
+        <div class="number"><%= stats.total_likes %></div>
+      </div>
+      <div class="stat-card">
+        <h3>Total Comments</h3>
+        <div class="number"><%= stats.total_comments %></div>
+      </div>
+    </div>
+
+    <a href="/author/create" class="create-btn">
+      <i class="fas fa-plus"></i> Create New Post
+    </a>
+
+    <div class="blogs-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Likes</th>
+            <th>Comments</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (blogs.length === 0) { %>
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 2rem; color: #7f8c8d;">
+                No posts yet. Create your first blog post!
+              </td>
+            </tr>
+          <% } else { %>
+            <% blogs.forEach(blog => { %>
+              <tr>
+                <td><strong><%= blog.title %></strong></td>
+                <td><%= blog.category %></td>
+                <td>
+                  <span class="status-badge <%= blog.status === 'published' ? 'status-published' : 'status-draft' %>">
+                    <%= blog.status %>
+                  </span>
+                </td>
+                <td>❤️ <%= blog.like_count %></td>
+                <td>💬 <%= blog.comment_count %></td>
+                <td><%= new Date(blog.created_at).toLocaleDateString() %></td>
+                <td>
+                  <div class="action-btns">
+                    <a href="/blog/<%= blog.slug %>" class="btn-sm btn-view" target="_blank">View</a>
+                    <a href="/author/edit/<%= blog.id %>" class="btn-sm btn-edit">Edit</a>
+                    <form method="POST" action="/author/delete/<%= blog.id %>" style="display: inline;" onsubmit="return confirm('Delete this post?')">
+                      <button type="submit" class="btn-sm btn-delete">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-</div>
+
+<script src="/js/header.js"></script>
