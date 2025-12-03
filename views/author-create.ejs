@@ -1,6 +1,96 @@
-<!-- Modern Blog Header -->
-<style>
-  .blog-header {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New Blog Post</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet">
+  <style>
+    .create-form {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .form-group textarea {
+      min-height: 300px;
+      resize: vertical;
+    }
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .btn-primary {
+      background: #3498db;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+    .error-message {
+      background: #e74c3c;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+    }
+    .radio-group {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: normal;
+    }
+    .radio-group input[type="radio"] {
+      width: auto;
+      margin: 0;
+    }
+
+      .blog-header {
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -274,8 +364,9 @@
       display: none;
     }
   }
-</style>
-
+  </style>
+</head>
+<body>
 <header class="blog-header">
   <div class="header-container">
     <!-- Brand -->
@@ -348,3 +439,69 @@
     }
   });
 </script>
+
+  <div class="content-wrapper">
+    <div class="main-content" style="margin-left: 0; padding: 2rem;">
+      <div class="create-form">
+        <h1>Create New Blog Post</h1>
+        
+        <% if (error) { %>
+          <div class="error-message"><%= error %></div>
+        <% } %>
+
+        <form method="POST" action="/author/create">
+          <div class="form-group">
+            <label for="title">Title *</label>
+            <input type="text" id="title" name="title" required value="<%= blog ? blog.title : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" name="category" required>
+              <option value="travel" <%= blog && blog.category === 'travel' ? 'selected' : '' %>>Travel</option>
+              <option value="design" <%= blog && blog.category === 'design' ? 'selected' : '' %>>Design</option>
+              <option value="art" <%= blog && blog.category === 'art' ? 'selected' : '' %>>Art</option>
+              <option value="technology" <%= blog && blog.category === 'technology' ? 'selected' : '' %>>Technology</option>
+              <option value="lifestyle" <%= blog && blog.category === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+              <option value="food" <%= blog && blog.category === 'food' ? 'selected' : '' %>>Food</option>
+              <option value="education" <%= blog && blog.category === 'education' ? 'selected' : '' %>>Education</option>
+              <option value="business" <%= blog && blog.category === 'business' ? 'selected' : '' %>>Business</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="content">Content *</label>
+            <textarea id="content" name="content" required><%= blog ? blog.content : '' %></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="tags">Tags (comma separated)</label>
+            <input type="text" id="tags" name="tags" placeholder="e.g., travel, adventure, mountains" value="<%= blog ? blog.tags : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label>Status *</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="status" value="draft" <%= !blog || blog.status === 'draft' ? 'checked' : '' %>>
+                Save as Draft
+              </label>
+              <label>
+                <input type="radio" name="status" value="published" <%= blog && blog.status === 'published' ? 'checked' : '' %>>
+                Publish Now
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="/author" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Create Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

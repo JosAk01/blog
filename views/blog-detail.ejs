@@ -1,70 +1,302 @@
-<style>
-  .blog-detail-container {
-  max-width: 750px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.08);
-  line-height: 1.8;
-  font-size: 1.1rem;
-  color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= blog.title %> - Blog Platform</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .blog-detail-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 20px;
+    }
+    .blog-header {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .blog-header h1 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+    .blog-meta {
+      color: #7f8c8d;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .blog-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: #ecf0f1;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #34495e;
+    }
+    .blog-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .like-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border: 2px solid #e74c3c;
+      background: white;
+      color: #e74c3c;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .like-btn:hover {
+      background: #e74c3c;
+      color: white;
+    }
+    .like-btn.liked {
+      background: #e74c3c;
+      color: white;
+    }
+    .blog-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      color: #34495e;
+    }
+    .comments-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .comments-section h2 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+    .comment {
+      padding: 1.5rem;
+      border-bottom: 1px solid #ecf0f1;
+    }
+    .comment:last-of-type {
+      border-bottom: none;
+    }
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .comment-author {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .comment-date {
+      color: #95a5a6;
+      font-size: 0.9rem;
+    }
+    .comment-content {
+      color: #555;
+      line-height: 1.6;
+    }
+    .comment-form {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 2px solid #ecf0f1;
+    }
+    .comment-form h3 {
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    .comment-form textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      min-height: 120px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    .comment-form textarea:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    .submit-btn {
+      margin-top: 1rem;
+      padding: 0.8rem 2rem;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover {
+      background: #2980b9;
+    }
+    .no-comments {
+      text-align: center;
+      color: #95a5a6;
+      padding: 2rem;
+    }
+    .login-prompt {
+      text-align: center;
+      padding: 2rem;
+      background: #ecf0f1;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    .login-prompt a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <a href="/"><span><img src="data:image/png;base64,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" alt=""></span></a>
+      </div>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <% if (session.user) { %>
+            <li><a href="/<%= session.user.role %>">Dashboard</a></li>
+            <li><a href="/logout">Logout</a></li>
+          <% } else { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Signup</a></li>
+          <% } %>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-.blog-title {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: #222;
-}
+  <div class="blog-detail-container">
+    <div class="blog-header">
+      <h1><%= blog.title %></h1>
+      
+      <div class="blog-meta">
+        <span><i class="fas fa-user"></i> <%= blog.author_name %></span>
+        <span><i class="fas fa-calendar"></i> <%= new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+        <span><i class="fas fa-folder"></i> <%= blog.category %></span>
+      </div>
 
-.blog-meta {
-  font-size: 0.95rem;
-  color: #777;
-  margin-bottom: 2rem;
-}
+      <% if (blog.tags && blog.tags.length > 0) { %>
+        <div class="blog-tags">
+          <% blog.tags.split(',').forEach(tag => { %>
+            <span class="tag"><%= tag.trim() %></span>
+          <% }); %>
+        </div>
+      <% } %>
 
-.blog-meta span {
-  margin-right: 1rem;
-}
+      <div class="blog-actions">
+        <% if (session.user) { %>
+          <button class="like-btn <%= userLiked ? 'liked' : '' %>" onclick="toggleLike()">
+            <i class="fas fa-heart"></i>
+            <span id="like-count"><%= blog.like_count %></span> Likes
+          </button>
+        <% } else { %>
+          <div class="like-btn">
+            <i class="fas fa-heart"></i>
+            <span><%= blog.like_count %></span> Likes
+          </div>
+        <% } %>
+        <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border: 2px solid #3498db; border-radius: 25px; color: #3498db;">
+          <i class="fas fa-comment"></i>
+          <span><%= blog.comment_count %></span> Comments
+        </div>
+      </div>
+    </div>
 
-.blog-body p {
-  margin-bottom: 1.5rem;
-}
+    <div class="blog-content">
+      <%= blog.content %>
+    </div>
 
-.blog-body img {
-  max-width: 100%;
-  margin: 1rem 0;
-  border-radius: 8px;
-}
+    <div class="comments-section">
+      <h2><i class="fas fa-comments"></i> Comments (<%= comments.length %>)</h2>
 
-.back-link {
-  display: inline-block;
-  margin-top: 2rem;
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+      <% if (comments.length === 0) { %>
+        <div class="no-comments">
+          <i class="fas fa-comment-slash" style="font-size: 3rem; color: #bdc3c7; margin-bottom: 1rem;"></i>
+          <p>No comments yet. Be the first to share your thoughts!</p>
+        </div>
+      <% } else { %>
+        <% comments.forEach(comment => { %>
+          <div class="comment">
+            <div class="comment-header">
+              <i class="fas fa-user-circle" style="font-size: 1.5rem; color: #3498db;"></i>
+              <span class="comment-author"><%= comment.user_name %></span>
+              <span class="comment-date"><%= new Date(comment.created_at).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></span>
+            </div>
+            <div class="comment-content"><%= comment.comment %></div>
+          </div>
+        <% }); %>
+      <% } %>
 
-.back-link:hover {
-  color: #0056b3;
-}
-
-</style>
-<section class="blog-detail-container">
-  <div class="blog-header">
-    <h1 class="blog-title"><%= blog.title %></h1>
-    <p class="blog-meta">
-      <span class="blog-date">📅 <%= new Date(blog.created_at).toDateString() %></span>
-      <span class="blog-category">🏷️ <%= blog.category %></span>
-    </p>
+      <% if (session.user) { %>
+        <div class="comment-form">
+          <h3>Leave a Comment</h3>
+          <form method="POST" action="/blog/<%= blog.id %>/comment">
+            <textarea name="comment" placeholder="Share your thoughts..." required></textarea>
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i> Post Comment
+            </button>
+          </form>
+        </div>
+      <% } else { %>
+        <div class="login-prompt">
+          <p>Please <a href="/login">login</a> or <a href="/signup">sign up</a> to leave a comment.</p>
+        </div>
+      <% } %>
+    </div>
   </div>
 
-  <div class="blog-body">
-    <%- blog.content %> 
-  </div>
-
-  <div class="blog-footer">
-    <a href="javascript:history.back()" class="back-link">← Back to all posts</a>
-  </div>
-</section>
-
+  <script>
+    async function toggleLike() {
+      try {
+        const response = await fetch('/blog/<%= blog.id %>/like', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          document.getElementById('like-count').textContent = data.likes;
+          const likeBtn = document.querySelector('.like-btn');
+          if (data.liked) {
+            likeBtn.classList.add('liked');
+          } else {
+            likeBtn.classList.remove('liked');
+          }
+        }
+      } catch (error) {
+        console.error('Error toggling like:', error);
+      }
+    }
+  </script>
+</body>
+</html>

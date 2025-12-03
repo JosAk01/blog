@@ -3,204 +3,562 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Revision — Heartfelt Reflections</title>
+  <title>BlogHub — Heartfelt Stories & Inspiration</title>
+  <meta name="description" content="Discover heartfelt stories, inspiring articles, and fresh perspectives on life, technology, travel, and more." />
 
-  <!-- your global styles -->
-  <link rel="stylesheet" href="/public/css/styles.css" />
-
-  <!-- icons (optional) -->
+  <link rel="stylesheet" href="/css/styles.css" />
   <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  
+  <style>
+    /* Enhanced Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* Hero Enhancements */
+    .lp-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0 60px;
+    }
+
+    .lp-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(90, 93, 245, 0.1) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .lp-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(154, 107, 255, 0.08) 0%, transparent 70%);
+      animation: float 8s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+
+    .lp-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .lp-hero-title {
+      font-size: clamp(32px, 5vw, 64px);
+      margin-bottom: 20px;
+    }
+
+    .lp-hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      max-width: 680px;
+    }
+
+    .hero-cta {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-btn-primary {
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      color: white;
+      box-shadow: 0 8px 24px rgba(90, 93, 245, 0.3);
+    }
+
+    .hero-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(90, 93, 245, 0.4);
+    }
+
+    .hero-btn-secondary {
+      background: white;
+      color: #5a5df5;
+      border: 2px solid #e9eaf3;
+    }
+
+    .hero-btn-secondary:hover {
+      border-color: #5a5df5;
+      background: #eef0ff;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: 40px 0;
+      background: linear-gradient(135deg, #f8f9fc 0%, #ffffff 100%);
+      border-top: 1px solid #e9eaf3;
+      border-bottom: 1px solid #e9eaf3;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: #5c6074;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Topic Pills Enhancement */
+    .lp-pill {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lp-pill::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(90, 93, 245, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .lp-pill:hover::before {
+      left: 100%;
+    }
+
+    /* Post Card Enhancements */
+    .post-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .post-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .post-card:hover .thumb-img {
+      transform: scale(1.05);
+    }
+
+    .thumb-img {
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Featured Badge */
+    .featured-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Loading States */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Newsletter Enhancement */
+    .lp-newsletter {
+      background: linear-gradient(135deg, #5a5df5 0%, #9a6bff 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lp-newsletter::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .lp-newsletter h2,
+    .lp-newsletter p {
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nl-form input {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid transparent;
+    }
+
+    .nl-form input:focus {
+      background: white;
+      border-color: white;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .nl-form button {
+      background: white;
+      color: #5a5df5;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .nl-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #5c6074;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+
+    .empty-state h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #0b1020;
+    }
+
+    /* Scroll to Top */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 8px 24px rgba(90, 93, 245, 0.4);
+      transition: all 0.3s;
+      z-index: 999;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(90, 93, 245, 0.5);
+    }
+
+    .scroll-top.show {
+      display: flex;
+    }
+  </style>
 </head>
 <body class="landing">
 
-<%- include('partials/header'); -%>
+  <%- include('partials/header'); -%>
 
   <!-- Hero -->
   <section class="lp-hero">
-    <div class="lp-container">
-      <h1 class="lp-hero-title">
+    <div class="lp-container lp-hero-content">
+      <h1 class="lp-hero-title animate-in">
         Heartfelt <span class="highlight">Reflections</span>:
-        Stories of Love,<br/> Loss, and Growth
+        <br/>Stories of Love, Loss, and Growth
       </h1>
-      <p class="lp-hero-sub">
-        Revision welcomes you to a source for fresh perspectives! Explore
-        curated content to enlighten, entertain, and engage global readers.
+      <p class="lp-hero-sub animate-in delay-1">
+        Welcome to a source for fresh perspectives! Explore curated content 
+        to enlighten, entertain, and engage readers worldwide.
       </p>
+      <div class="hero-cta animate-in delay-2">
+        <% if (session.user) { %>
+          <% if (session.user.role === 'author') { %>
+            <a href="/author/create" class="hero-btn hero-btn-primary">
+              <i class="fas fa-pen"></i> Write a Story
+            </a>
+          <% } %>
+          <a href="/<%= session.user.role %>" class="hero-btn hero-btn-secondary">
+            <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+          </a>
+        <% } else { %>
+          <a href="/signup" class="hero-btn hero-btn-primary">
+            <i class="fas fa-rocket"></i> Get Started Free
+          </a>
+          <a href="#featured" class="hero-btn hero-btn-secondary">
+            <i class="fas fa-book-open"></i> Explore Stories
+          </a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-section">
+    <div class="lp-container">
+      <div class="stats-grid">
+        <div class="stat-item animate-in delay-1">
+          <div class="stat-number"><%= blogs.length %>+</div>
+          <div class="stat-label">Stories Published</div>
+        </div>
+        <div class="stat-item animate-in delay-2">
+          <div class="stat-number">
+            <%= blogs.reduce((sum, b) => sum + (b.comment_count || 0), 0) %>+
+          </div>
+          <div class="stat-label">Active Discussions</div>
+        </div>
+        <div class="stat-item animate-in delay-3">
+          <div class="stat-number">
+            <%= blogs.reduce((sum, b) => sum + (b.like_count || 0), 0) %>+
+          </div>
+          <div class="stat-label">Hearts Given</div>
+        </div>
+        <div class="stat-item animate-in delay-4">
+          <div class="stat-number">
+            <%= [...new Set(blogs.map(b => b.category))].length %>
+          </div>
+          <div class="stat-label">Categories</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Trending Topics -->
-  <section class="lp-topics">
+  <section class="lp-topics" id="categories">
     <div class="lp-container">
       <p class="lp-topics-title">Explore Trending Topics</p>
       <div class="lp-pill-row">
-        <a class="lp-pill" href="#"><i class="uil uil-circuit"></i> Technology</a>
-        <a class="lp-pill" href="#"><i class="uil uil-suitcase-alt"></i> Travel</a>
-        <a class="lp-pill" href="#"><i class="uil uil-football"></i> Sport</a>
-        <a class="lp-pill" href="#"><i class="uil uil-briefcase-alt"></i> Business</a>
-        <a class="lp-pill" href="#"><i class="uil uil-presentation-line"></i> Management</a>
-        <a class="lp-pill" href="#"><i class="uil uil-fire"></i> Trends</a>
-        <a class="lp-pill" href="#"><i class="uil uil-rocket"></i> Startups</a>
-        <a class="lp-pill" href="#"><i class="uil uil-newspaper"></i> News</a>
+        <a class="lp-pill" href="#technology">
+          <i class="uil uil-circuit"></i> Technology
+        </a>
+        <a class="lp-pill" href="#travel">
+          <i class="uil uil-suitcase-alt"></i> Travel
+        </a>
+        <a class="lp-pill" href="#design">
+          <i class="uil uil-paint-tool"></i> Design
+        </a>
+        <a class="lp-pill" href="#art">
+          <i class="uil uil-palette"></i> Art
+        </a>
+        <a class="lp-pill" href="#lifestyle">
+          <i class="uil uil-heart"></i> Lifestyle
+        </a>
+        <a class="lp-pill" href="#business">
+          <i class="uil uil-briefcase-alt"></i> Business
+        </a>
+        <a class="lp-pill" href="#food">
+          <i class="uil uil-pizza-slice"></i> Food
+        </a>
+        <a class="lp-pill" href="#education">
+          <i class="uil uil-graduation-cap"></i> Education
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Content Grid -->
-  <main class="lp-container lp-grid">
+  <main class="lp-container lp-grid" id="featured">
     <!-- Posts -->
     <section class="lp-posts">
-      <!-- Card -->
-      <article class="post-card">
-        <a class="thumb" href="/blog/how-tech-shapes-the-future-of-work">
-          <div class="thumb-img" aria-hidden="true"></div>
-          <div class="chip-row">
-            <span class="chip">Business</span>
-            <span class="chip">News</span>
+      <% if (blogs.length === 0) { %>
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <div class="empty-state-icon">
+            <i class="fas fa-book-open"></i>
           </div>
-        </a>
-        <div class="post-meta">
-          <a class="author" href="#">Ethan Caldwell</a>
-          <span class="dot">•</span>
-          <time datetime="2024-10-16">October 16, 2024</time>
+          <h3>No stories yet</h3>
+          <p>Be the first to share your story with the world!</p>
+          <% if (session.user && session.user.role === 'author') { %>
+            <a href="/author/create" class="hero-btn hero-btn-primary" style="margin-top: 20px;">
+              <i class="fas fa-pen"></i> Write First Story
+            </a>
+          <% } %>
         </div>
-        <h3 class="post-title">
-          <a href="/blog/how-tech-shapes-the-future-of-work">How Tech Shapes the Future of Work in 2024</a>
-        </h3>
-        <p class="post-excerpt">
-          In today’s ever-evolving world, storytelling has become a powerful tool for connection…
-        </p>
-      </article>
-
-      <!-- Card -->
-      <article class="post-card">
-        <a class="thumb" href="/blog/future-of-work-tech-and-remote-trends">
-          <div class="thumb-img alt" aria-hidden="true"></div>
-          <div class="chip-row">
-            <span class="chip">Sport</span>
-            <span class="chip">Travel</span>
-          </div>
-        </a>
-        <div class="post-meta">
-          <a class="author" href="#">Ethan Caldwell</a>
-          <span class="dot">•</span>
-          <time datetime="2024-09-29">September 29, 2024</time>
-        </div>
-        <h3 class="post-title">
-          <a href="/blog/future-of-work-tech-and-remote-trends">The Future of Work: Tech and Remote Trends</a>
-        </h3>
-        <p class="post-excerpt">
-          Why 2024 is set to be a pivotal year for technology and its impact on the industry…
-        </p>
-      </article>
-
-      <!-- Another row -->
-      <article class="post-card">
-        <a class="thumb" href="#">
-          <div class="thumb-img" aria-hidden="true"></div>
-          <div class="chip-row">
-            <span class="chip">News</span>
-            <span class="chip">Trends</span>
-          </div>
-        </a>
-        <div class="post-meta">
-          <a class="author" href="#">Ethan Caldwell</a>
-          <span class="dot">•</span>
-          <time datetime="2024-08-21">August 21, 2024</time>
-        </div>
-        <h3 class="post-title"><a href="#">Designing Playful Gadgets in 2024</a></h3>
-        <p class="post-excerpt">A look into product design that blends nostalgia and modern usability…</p>
-      </article>
-
-      <article class="post-card">
-        <a class="thumb" href="#">
-          <div class="thumb-img alt" aria-hidden="true"></div>
-          <div class="chip-row">
-            <span class="chip">Business</span>
-          </div>
-        </a>
-        <div class="post-meta">
-          <a class="author" href="#">Ethan Caldwell</a>
-          <span class="dot">•</span>
-          <time datetime="2024-07-03">July 3, 2024</time>
-        </div>
-        <h3 class="post-title"><a href="#">Building Brands with Delight</a></h3>
-        <p class="post-excerpt">How small teams create big feelings with consistent storytelling…</p>
-      </article>
-
-      <article class="post-card">
-        <a class="thumb" href="#">
-          <div class="thumb-img alt" aria-hidden="true"></div>
-          <div class="chip-row">
-            <span class="chip">Business</span>
-          </div>
-        </a>
-        <div class="post-meta">
-          <a class="author" href="#">Ethan Caldwell</a>
-          <span class="dot">•</span>
-          <time datetime="2024-07-03">July 3, 2024</time>
-        </div>
-        <h3 class="post-title"><a href="#">Building Brands with Delight</a></h3>
-        <p class="post-excerpt">How small teams create big feelings with consistent storytelling…</p>
-      </article>
-
-      <article class="post-card">
-        <a class="thumb" href="#">
-          <div class="thumb-img alt" aria-hidden="true"></div>
-          <div class="chip-row">
-            <span class="chip">Business</span>
-          </div>
-        </a>
-        <div class="post-meta">
-          <a class="author" href="#">Ethan Caldwell</a>
-          <span class="dot">•</span>
-          <time datetime="2024-07-03">July 3, 2024</time>
-        </div>
-        <h3 class="post-title"><a href="#">Building Brands with Delight</a></h3>
-        <p class="post-excerpt">How small teams create big feelings with consistent storytelling…</p>
-      </article>
+      <% } else { %>
+        <% blogs.slice(0, 6).forEach((blog, index) => { %>
+          <article class="post-card animate-in delay-<%= (index % 4) + 1 %>">
+            <a class="thumb" href="/blog/<%= blog.slug %>">
+              <div class="thumb-img <%= index % 2 === 0 ? '' : 'alt' %>" aria-hidden="true"></div>
+              <div class="chip-row">
+                <span class="chip"><%= blog.category %></span>
+                <% if (blog.tags && blog.tags.split(',')[0]) { %>
+                  <span class="chip"><%= blog.tags.split(',')[0].trim() %></span>
+                <% } %>
+              </div>
+              <% if (index === 0) { %>
+                <span class="featured-badge">✨ Featured</span>
+              <% } %>
+            </a>
+            <div class="post-meta">
+              <a class="author" href="#"><%= blog.author_name %></a>
+              <span class="dot">•</span>
+              <time datetime="<%= blog.created_at %>">
+                <%= new Date(blog.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>
+              </time>
+            </div>
+            <h3 class="post-title">
+              <a href="/blog/<%= blog.slug %>"><%= blog.title %></a>
+            </h3>
+            <p class="post-excerpt">
+              <%= blog.content.substring(0, 120) %>...
+            </p>
+            <div class="post-meta" style="margin-top: 12px; border-top: 1px solid #e9eaf3; padding-top: 12px;">
+              <span style="display: inline-flex; align-items: center; gap: 4px;">
+                <i class="fas fa-heart" style="color: #e74c3c;"></i> <%= blog.like_count || 0 %>
+              </span>
+              <span class="dot">•</span>
+              <span style="display: inline-flex; align-items: center; gap: 4px;">
+                <i class="fas fa-comment" style="color: #3498db;"></i> <%= blog.comment_count || 0 %>
+              </span>
+            </div>
+          </article>
+        <% }); %>
+      <% } %>
     </section>
 
     <!-- Sidebar -->
     <aside class="lp-sidebar">
-      <section class="about-card">
-        <h4 class="aside-title">About</h4>
+      <section class="about-card animate-in delay-2">
+        <h4 class="aside-title">About BlogHub</h4>
         <div class="about-author">
-          <img src="https://i.pravatar.cc/96?img=12" alt="Author avatar" />
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #5a5df5, #9a6bff); display: grid; place-items: center; color: white; font-weight: 800; font-size: 24px;">
+            B
+          </div>
           <div>
-            <p class="name">Ethan Caldwell</p>
-            <p class="role">Reflective Blogger</p>
+            <p class="name">BlogHub Community</p>
+            <p class="role">Stories & Reflections</p>
           </div>
         </div>
         <p class="about-text">
-          Ethan shares thoughtful insights on life, culture, and personal growth. His work explores
-          creativity and experience, offering readers unique perspectives.
+          A platform where writers share heartfelt stories, inspiring articles, 
+          and fresh perspectives. Join our community of storytellers and readers 
+          who believe in the power of words.
         </p>
-        <p class="about-loc"><i class="uil uil-location-point"></i> Paris, France</p>
+        <p class="about-loc">
+          <i class="uil uil-globe"></i> Worldwide Community
+        </p>
         <div class="about-social">
-          <a href="#"><i class="uil uil-dribbble"></i></a>
-          <a href="#"><i class="uil uil-instagram"></i></a>
-          <a href="#"><i class="uil uil-linkedin"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
         </div>
       </section>
 
-      <section class="featured-card">
-        <h4 class="aside-title">Featured Posts</h4>
-        <a class="featured-item" href="#">
-          <div class="mini-thumb"></div>
-          <div>
-            <p class="mini-kicker">Management</p>
-            <p class="mini-title">Shaping 2024 Teams</p>
-          </div>
-        </a>
-        <a class="featured-item" href="#">
-          <div class="mini-thumb alt"></div>
-          <div>
-            <p class="mini-kicker">Business</p>
-            <p class="mini-title">Pricing With Purpose</p>
-          </div>
-        </a>
+      <% if (blogs.length > 0) { %>
+        <section class="featured-card animate-in delay-3">
+          <h4 class="aside-title">Most Popular</h4>
+          <% 
+            const sortedByLikes = [...blogs].sort((a, b) => (b.like_count || 0) - (a.like_count || 0)).slice(0, 3);
+            sortedByLikes.forEach((blog, index) => { 
+          %>
+            <a class="featured-item" href="/blog/<%= blog.slug %>">
+              <div class="mini-thumb <%= index % 2 === 0 ? '' : 'alt' %>"></div>
+              <div>
+                <p class="mini-kicker"><%= blog.category %></p>
+                <p class="mini-title"><%= blog.title.substring(0, 40) %><%= blog.title.length > 40 ? '...' : '' %></p>
+                <p style="font-size: 11px; color: #5c6074; margin-top: 4px;">
+                  <i class="fas fa-heart" style="color: #e74c3c;"></i> <%= blog.like_count || 0 %> likes
+                </p>
+              </div>
+            </a>
+          <% }); %>
+        </section>
+      <% } %>
+
+      <!-- Categories Widget -->
+      <section class="featured-card animate-in delay-4">
+        <h4 class="aside-title">Browse by Category</h4>
+        <% 
+          const categoryCounts = {};
+          blogs.forEach(b => {
+            categoryCounts[b.category] = (categoryCounts[b.category] || 0) + 1;
+          });
+          Object.entries(categoryCounts).slice(0, 5).forEach(([cat, count]) => {
+        %>
+          <a class="featured-item" href="#<%= cat.toLowerCase() %>" style="padding: 8px 0;">
+            <div style="width: 40px; height: 40px; background: #eef0ff; border-radius: 10px; display: grid; place-items: center; color: #5a5df5; font-weight: 800;">
+              <%= count %>
+            </div>
+            <div>
+              <p class="mini-title" style="margin: 0;"><%= cat %></p>
+              <p style="font-size: 11px; color: #5c6074; margin: 0;">
+                <%= count %> <%= count === 1 ? 'story' : 'stories' %>
+              </p>
+            </div>
+          </a>
+        <% }); %>
       </section>
     </aside>
   </main>
@@ -208,23 +566,84 @@
   <!-- Newsletter -->
   <section class="lp-newsletter">
     <div class="lp-container">
-      <h2>Subscribe to our Newsletter</h2>
-      <p>Get the latest posts delivered right to your email.</p>
-      <form class="nl-form" action="#" method="post">
-        <input type="email" name="email" placeholder="Enter your email" required />
-        <button type="submit">Subscribe</button>
+      <h2>✨ Subscribe to our Newsletter</h2>
+      <p>Get the latest stories delivered right to your inbox every week.</p>
+      <form class="nl-form" action="/newsletter/subscribe" method="post">
+        <input type="email" name="email" placeholder="Enter your email address" required />
+        <button type="submit">
+          <i class="fas fa-paper-plane"></i> Subscribe
+        </button>
       </form>
-      <small>Pure inspiration, zero spam ✨</small>
+      <small>Join 10,000+ readers • Pure inspiration, zero spam ✨</small>
     </div>
   </section>
 
   <%- include('partials/footer'); -%>
 
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script>
-    // tiny theme toggle (optional)
-    const btn = document.getElementById('themeToggle');
-    btn?.addEventListener('click', () => document.body.classList.toggle('dark'));
+    // Scroll to top functionality
+    const scrollTopBtn = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Newsletter form submission
+    const nlForm = document.querySelector('.nl-form');
+    if (nlForm) {
+      nlForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = nlForm.querySelector('input[type="email"]').value;
+        alert(`Thank you for subscribing with ${email}! 🎉`);
+        nlForm.reset();
+      });
+    }
   </script>
 </body>
 </html>
-

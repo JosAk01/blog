@@ -1,121 +1,931 @@
 <link rel="stylesheet" href="/css/styles.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet">
-<header>
-  <div class="container">
-    <div class="logo">
-      <a href="/"><span><img src="data:image/png;base64,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" alt=""></span></a>
-    </div>
-    
-    <nav>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <% if (!session.admin) { %>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/signup">Signup</a></li>
+<!-- Modern Blog Header -->
+<style>
+  .blog-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: 1px solid #e9eaf3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .blog-header .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    gap: 20px;
+  }
+
+  .blog-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .blog-brand:hover {
+    transform: translateY(-2px);
+  }
+
+  .blog-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #5a5df5, #9a6bff);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.3);
+  }
+
+  .blog-brand-text {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #5a5df5, #9a6bff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .blog-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .blog-nav a {
+    text-decoration: none;
+    color: #5c6074;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .blog-nav a:hover {
+    color: #5a5df5;
+    background: #eef0ff;
+  }
+
+  .blog-nav a.active {
+    color: #5a5df5;
+    background: #eef0ff;
+  }
+
+  .blog-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background: linear-gradient(90deg, #5a5df5, #9a6bff);
+    border-radius: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: #f7f7fb;
+    border-radius: 12px;
+    border: 1px solid #e9eaf3;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5a5df5, #9a6bff);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .user-name {
+    font-weight: 600;
+    color: #0b1020;
+    font-size: 14px;
+  }
+
+  .header-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-login {
+    background: transparent;
+    color: #5a5df5;
+    border: 1px solid #e9eaf3;
+  }
+
+  .btn-login:hover {
+    background: #eef0ff;
+    border-color: #5a5df5;
+  }
+
+  .btn-signup {
+    background: linear-gradient(135deg, #5a5df5, #9a6bff);
+    color: white;
+    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.3);
+  }
+
+  .btn-signup:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(90, 93, 245, 0.4);
+  }
+
+  .btn-logout {
+    background: #f7f7fb;
+    color: #5c6074;
+    border: 1px solid #e9eaf3;
+  }
+
+  .btn-logout:hover {
+    background: #ffe1e1;
+    color: #e74c3c;
+    border-color: #e74c3c;
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e9eaf3;
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .mobile-menu-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #0b1020;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .blog-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: none;
+      gap: 8px;
+    }
+
+    .blog-nav.active {
+      display: flex;
+    }
+
+    .blog-nav a {
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
+
+    .header-actions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: none;
+      margin-top: 1px;
+    }
+
+    .header-actions.active {
+      display: flex;
+    }
+
+    .user-menu {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .header-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .blog-header .header-container {
+      padding: 12px 16px;
+    }
+
+    .blog-brand-text {
+      display: none;
+    }
+  }
+</style>
+
+<header class="blog-header">
+  <div class="header-container">
+    <!-- Brand -->
+    <a href="/" class="blog-brand">
+      <div class="blog-logo">B</div>
+      <span class="blog-brand-text">BlogHub</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="blog-nav" id="blogNav">
+      <a href="/" class="<%= typeof currentPage !== 'undefined' && currentPage === 'home' ? 'active' : '' %>">Home</a>
+      <% if (session.user) { %>
+        <% if (session.user.role === 'admin') { %>
+          <a href="/admin" class="<%= typeof currentPage !== 'undefined' && currentPage === 'admin' ? 'active' : '' %>">Dashboard</a>
+        <% } else if (session.user.role === 'author') { %>
+          <a href="/author" class="<%= typeof currentPage !== 'undefined' && currentPage === 'author' ? 'active' : '' %>">My Posts</a>
         <% } else { %>
-          <li><a href="/admin">Welcome, <%= session.admin.name %></a></li>
-          <li><a href="#">Logout</a></li>
+          <a href="/user" class="<%= typeof currentPage !== 'undefined' && currentPage === 'user' ? 'active' : '' %>">Explore</a>
         <% } %>
-      </ul>
-      <button class="hamburger" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <% } %>
+      <a href="/#featured">Featured</a>
+      <a href="/#categories">Categories</a>
     </nav>
+
+    <!-- Actions -->
+    <div class="header-actions" id="headerActions">
+      <% if (session.user) { %>
+        <div class="user-menu">
+          <div class="user-avatar"><%= session.user.name.charAt(0).toUpperCase() %></div>
+          <span class="user-name"><%= session.user.name %></span>
+        </div>
+        <a href="/logout" class="header-btn btn-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      <% } else { %>
+        <a href="/login" class="header-btn btn-login">Login</a>
+        <a href="/signup" class="header-btn btn-signup">Get Started</a>
+      <% } %>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const blogNav = document.getElementById('blogNav');
+  const headerActions = document.getElementById('headerActions');
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuBtn.classList.toggle('active');
+      blogNav.classList.toggle('active');
+      headerActions.classList.toggle('active');
+    });
+  }
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.blog-header')) {
+      mobileMenuBtn?.classList.remove('active');
+      blogNav?.classList.remove('active');
+      headerActions?.classList.remove('active');
+    }
+  });
+</script>
 <div class="content-wrapper">
 
-  <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left" id="show-side-navigation1">
-    <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">      
-      <div class="ms-2">
-        <h5 class="fs-6 mb-0">
-          <a class="text-decoration-none" href="#"><%= session.user.name %></a>
-        </h5>
-        <p class="mt-1 mb-0">Lorem ipsum dolor sit amet consectetur.</p>
+<style>
+  /* Modern Sidebar Styles */
+  .sidebar {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    height: calc(100vh - 90px);
+    width: 260px;
+    background: #ffffff;
+    border-right: 1px solid #e9eaf3;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Custom Scrollbar */
+  .sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #d0d5dd;
+    border-radius: 10px;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #98a2b3;
+  }
+
+  /* Sidebar Header */
+  .sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid #f0f1f5;
+    background: linear-gradient(135deg, #f8f9fc 0%, #ffffff 100%);
+  }
+
+  .sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sidebar-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #5a5df5, #9a6bff);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.25);
+  }
+
+  .sidebar-user-info h5 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0b1020;
+    margin: 0;
+  }
+
+  .sidebar-user-info h5 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .sidebar-user-info h5 a:hover {
+    color: #5a5df5;
+  }
+
+  .sidebar-user-role {
+    font-size: 12px;
+    color: #5c6074;
+    margin: 4px 0 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Search Box */
+  .sidebar-search {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f1f5;
+  }
+
+  .sidebar-search-input {
+    width: 100%;
+    padding: 10px 16px;
+    padding-left: 40px;
+    border: 1px solid #e9eaf3;
+    border-radius: 10px;
+    background: #f8f9fc;
+    font-size: 14px;
+    color: #0b1020;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .sidebar-search-wrapper {
+    position: relative;
+  }
+
+  .sidebar-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #98a2b3;
+    font-size: 14px;
+  }
+
+  .sidebar-search-input:focus {
+    outline: none;
+    border-color: #5a5df5;
+    background: white;
+    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.1);
+  }
+
+  .sidebar-search-input::placeholder {
+    color: #98a2b3;
+  }
+
+  /* Navigation */
+  .sidebar-nav {
+    padding: 12px 0;
+  }
+
+  .sidebar-nav-section {
+    margin-bottom: 24px;
+  }
+
+  .sidebar-nav-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #98a2b3;
+    padding: 12px 20px 8px;
+    margin: 0;
+  }
+
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-nav li {
+    margin: 0;
+  }
+
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #5c6074;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .sidebar-nav a i {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .sidebar-nav a:hover {
+    background: #f8f9fc;
+    color: #5a5df5;
+  }
+
+  .sidebar-nav a:hover i {
+    transform: translateX(2px);
+  }
+
+  .sidebar-nav a.active {
+    background: linear-gradient(90deg, #eef0ff 0%, transparent 100%);
+    color: #5a5df5;
+    border-left: 3px solid #5a5df5;
+    font-weight: 700;
+  }
+
+  .sidebar-nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 24px;
+    background: linear-gradient(180deg, #5a5df5, #9a6bff);
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* Logout Button Special Styling */
+  .sidebar-nav a.logout-link {
+    margin-top: 20px;
+    color: #e74c3c;
+    border-top: 1px solid #f0f1f5;
+    padding-top: 20px;
+  }
+
+  .sidebar-nav a.logout-link:hover {
+    background: #fff5f5;
+    color: #c0392b;
+  }
+
+  /* Badge */
+  .nav-badge {
+    margin-left: auto;
+    background: linear-gradient(135deg, #5a5df5, #9a6bff);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 12px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .nav-badge.warning {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+  }
+
+  .nav-badge.success {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+  }
+
+  /* Collapse Toggle */
+  .sidebar-collapse {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 1px solid #e9eaf3;
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+  }
+
+  .sidebar-collapse:hover {
+    background: #5a5df5;
+    color: white;
+    border-color: #5a5df5;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .sidebar {
+      transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    .sidebar-collapse {
+      display: flex;
+    }
+  }
+</style>
+
+<aside class="sidebar" id="mainSidebar">
+  <!-- Collapse Button -->
+  <button class="sidebar-collapse" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar Header with User Info -->
+  <div class="sidebar-header">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">
+        <%= session.user.name.charAt(0).toUpperCase() %>
+      </div>
+      <div class="sidebar-user-info">
+        <h5><a href="#"><%= session.user.name %></a></h5>
+        <p class="sidebar-user-role">
+          <% if (session.user.role === 'admin') { %>
+            Administrator
+          <% } else if (session.user.role === 'author') { %>
+            Author
+          <% } else { %>
+            User
+          <% } %>
+        </p>
       </div>
     </div>
-    <hr>
-    <br>
-    <div class="search position-relative text-center px-4 py-3 mt-2">
-      <input type="text" class="form-control w-100 border-0 bg-transparent" placeholder="Search here">
+  </div>
+
+  <!-- Search -->
+  <div class="sidebar-search">
+    <div class="sidebar-search-wrapper">
+      <i class="fas fa-search sidebar-search-icon"></i>
+      <input 
+        type="text" 
+        class="sidebar-search-input" 
+        placeholder="Search..."
+        id="sidebarSearch"
+      />
     </div>
-    <br>
-    <ul class="categories list-unstyled">
-      <li>
-       <a href="#" class="active"><i class="uil-estate fa-fw"></i> Dashboard</a>
-      </li>
-      <li>
-        <a href="/blogs"><i class="uil-book"></i> Blogs</a>
-      </li>
-      <li>
-       <a href="#"><i class="uil-calendar-alt"></i> Calendar</a>
-      </li>
-      <li>
-       <a href="#"><i class="uil-shopping-cart-alt"></i> Ecommerce</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-bag"></i> Projects</a>
-      </li>
-      <li>
-        <a href="#"><i class="uil-setting"></i> Settings</a>
-      </li>
-      <li>
-        <a href="#"><i class="uil-panel-add"></i> Charts</a>
-      </li>
-      <li>
-        <a href="#"><i class="uil-map-marker"></i> Maps</a>
-      </li>
-    </ul>
-  </aside>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+    <!-- Main Section -->
+    <div class="sidebar-nav-section">
+      <h6 class="sidebar-nav-title">Main</h6>
+      <ul>
+        <li>
+          <a href="/<%= session.user.role %>" class="<%= typeof currentPage !== 'undefined' && currentPage === 'dashboard' ? 'active' : '' %>">
+            <i class="uil uil-estate"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        
+        <% if (session.user.role === 'admin') { %>
+          <li>
+            <a href="/admin/users">
+              <i class="uil uil-users-alt"></i>
+              <span>Manage Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/blogs">
+              <i class="uil uil-book"></i>
+              <span>Manage Blogs</span>
+            </a>
+          </li>
+        <% } %>
+
+        <% if (session.user.role === 'author') { %>
+          <li>
+            <a href="/author/create">
+              <i class="uil uil-plus-circle"></i>
+              <span>Create Post</span>
+              <span class="nav-badge success">New</span>
+            </a>
+          </li>
+          <li>
+            <a href="/author">
+              <i class="uil uil-book-alt"></i>
+              <span>My Posts</span>
+            </a>
+          </li>
+        <% } %>
+
+        <% if (session.user.role === 'user') { %>
+          <li>
+            <a href="/user">
+              <i class="uil uil-book-open"></i>
+              <span>Explore Blogs</span>
+            </a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+
+    <!-- Tools Section -->
+    <div class="sidebar-nav-section">
+      <h6 class="sidebar-nav-title">Tools</h6>
+      <ul>
+        <li>
+          <a href="/calendar">
+            <i class="uil uil-calendar-alt"></i>
+            <span>Calendar</span>
+          </a>
+        </li>
+        <% if (session.user.role !== 'user') { %>
+          <li>
+            <a href="#">
+              <i class="uil uil-chart-pie-alt"></i>
+              <span>Analytics</span>
+            </a>
+          </li>
+        <% } %>
+        <li>
+          <a href="/map">
+            <i class="uil uil-map-marker"></i>
+            <span>Maps</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="sidebar-nav-section">
+      <h6 class="sidebar-nav-title">Settings</h6>
+      <ul>
+        <li>
+          <a href="/settings">
+            <i class="uil uil-setting"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" id="themeToggle">
+            <i class="uil uil-moon"></i>
+            <span>Dark Mode</span>
+          </a>
+        </li>
+        <li>
+          <a href="/logout" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</aside>
+
+<script>
+  // Sidebar toggle for mobile
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const mainSidebar = document.getElementById('mainSidebar');
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+      mainSidebar.classList.toggle('active');
+    });
+  }
+
+  // Close sidebar when clicking outside on mobile
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 968) {
+      if (!e.target.closest('.sidebar') && !e.target.closest('.sidebar-collapse')) {
+        mainSidebar?.classList.remove('active');
+      }
+    }
+  });
+
+  // Search functionality
+  const sidebarSearch = document.getElementById('sidebarSearch');
+  if (sidebarSearch) {
+    sidebarSearch.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      
+      navLinks.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        const listItem = link.parentElement;
+        
+        if (text.includes(searchTerm)) {
+          listItem.style.display = 'block';
+        } else {
+          listItem.style.display = 'none';
+        }
+      });
+
+      // Show/hide section titles
+      document.querySelectorAll('.sidebar-nav-section').forEach(section => {
+        const visibleLinks = section.querySelectorAll('li[style="display: block;"], li:not([style])');
+        if (visibleLinks.length === 0 || (searchTerm && visibleLinks.length === 0)) {
+          section.style.display = 'none';
+        } else {
+          section.style.display = 'block';
+        }
+      });
+    });
+  }
+
+  // Theme toggle (optional)
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.body.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      if (document.body.classList.contains('dark')) {
+        icon.className = 'uil uil-sun';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.className = 'uil uil-moon';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      themeToggle.querySelector('i').className = 'uil uil-sun';
+    }
+  }
+
+  // Highlight active page
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    if (link.getAttribute('href') === currentPath) {
+      link.classList.add('active');
+    }
+  });
+</script>
   <div class="main-content">
-  <d iv class="main-content">
     <!-- Welcome Message -->
     <div class="welcome">
-      <h1>Welcome to Dashboard</h1>
-      <p>Hello <%= session.user.name %>, welcome to your awesome dashboard!</p>
+      <h1>Admin Dashboard</h1>
+      <p>Hello <%= session.user.name %>, manage your blog platform here!</p>
     </div>
   
-    <!-- Metrics Section -->
+    <!-- Metrics Section with Real Stats -->
     <div class="metrics">
       <div class="metric-card email">
-        <div class="icon">
-          <i class="fas fa-envelope"></i>
-        </div>
-        <div>
-          <h3>1,245 Emails</h3>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-      </div>
-      <div class="metric-card projects">
-        <div class="icon">
-          <i class="fas fa-file-alt"></i>
-        </div>
-        <div>
-          <h3>34 Projects</h3>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-      </div>
-      <div class="metric-card users">
         <div class="icon">
           <i class="fas fa-users"></i>
         </div>
         <div>
-          <h3>5,245 Users</h3>
-          <p>Lorem ipsum dolor sit amet</p>
+          <h3><%= stats.total_users %> Users</h3>
+          <p>Total registered users</p>
+        </div>
+      </div>
+      <div class="metric-card projects">
+        <div class="icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div>
+          <h3><%= stats.total_blogs %> Blogs</h3>
+          <p>All blog posts</p>
+        </div>
+      </div>
+      <div class="metric-card users">
+        <div class="icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div>
+          <h3><%= stats.published_blogs %> Published</h3>
+          <p>Live blog posts</p>
+        </div>
+      </div>
+      <div class="metric-card users">
+        <div class="icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div>
+          <h3><%= stats.total_comments %> Comments</h3>
+          <p>Total user comments</p>
         </div>
       </div>
     </div>
 
-
+    <!-- Quick Actions -->
+    <div style="margin: 2rem 0; display: flex; gap: 1rem;">
+      <a href="/admin/users" style="padding: 1rem 2rem; background: #3498db; color: white; text-decoration: none; border-radius: 5px; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-users"></i> Manage Users
+      </a>
+      <a href="/admin/blogs" style="padding: 1rem 2rem; background: #27ae60; color: white; text-decoration: none; border-radius: 5px; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-book"></i> Manage Blogs
+      </a>
+    </div>
   
     <!-- Charts Section -->
     <div class="charts">
       <div class="chart">
-        <h3>Chart Title</h3>
-        <p>Graph placeholder</p>
+        <h3>Monthly Activity</h3>
+        <p>User activity over the months</p>
         <div>
           <canvas id="myChart"></canvas>
         </div>
@@ -128,16 +938,16 @@
           new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
+              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
               datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3, 7, 14],
+                label: 'New Users',
+                data: [12, 19, 3, 5, 2, 3, 7, 14, 8],
                 backgroundColor: "#0d6efd",
                 borderColor: 'transparent',
                 borderWidth: 2.5,
                 barPercentage: 0.4,
               }, {
-                label: "Succes",
+                label: "New Blogs",
                 startAngle: 2,
                 data: [20, 40, 20, 50, 25, 40, 25, 10, 30],
                 backgroundColor: "#dc3545",
@@ -166,8 +976,8 @@
         
       </div>
       <div class="chart">
-        <h3>Chart Title</h3>
-        <p>Graph placeholder</p>
+        <h3>Blog Performance</h3>
+        <p>Engagement trends</p>
         <div>
           <canvas id="myChart2"></canvas>
         </div>
@@ -180,17 +990,17 @@
           new Chart(ctx2, {
             type: 'line',
             data: {
-              labels: ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
+              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
               datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3, 7, 14],
+                label: 'Likes',
+                data: [12, 19, 13, 25, 22, 33, 37, 44, 52],
                 backgroundColor: 'transparent',
                 borderColor: '#0d6efd',
                 lineTension: .4,
                 borderWidth: 1.5,
               }, {
-                label: "Month",
-                data: [16, 30, 16, 30, 16, 36, 21, 35, 18],
+                label: "Comments",
+                data: [6, 10, 8, 15, 12, 18, 21, 25, 28],
                 backgroundColor: 'transparent',
                 borderColor: '#f0ad4e',
                 lineTension: .4,
@@ -219,148 +1029,161 @@
       </div>
     </div>
   
-    <!-- Six-Box Section -->
+    <!-- System Info Section -->
     <div class="six-boxes">
       <div class="box">
         <div class="admin">
-          <div class="img">
-            <img class="img-fluid"
-                 width="75" height="75"
-                 src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/021036514417/media/23148907137/small/1501685404/enhance"
-                 alt="admin">
+          <div class="icon" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;">
+            <i class="fas fa-shield-alt"></i>
           </div>
           <div class="details">
-            <h3>Joge Lucky</h3>
-            <p>Lorem ipsum dolor sit amet consectetur elit.</p>
+            <h3>System Admin</h3>
+            <p>Full platform control and oversight</p>
           </div>
         </div>
       </div>
-      <div class="box">Box 2</div>
-      <div class="box">Box 3</div>
-      <div class="box">Box 4</div>
-      <div class="box">Box 5</div>
-      <div class="box">Box 6</div>
+      <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem;">
+        <i class="fas fa-users" style="font-size: 2.5rem; color: #27ae60; margin-bottom: 0.5rem;"></i>
+        <h3 style="margin: 0.5rem 0;"><%= stats.total_users %></h3>
+        <p style="margin: 0; color: #7f8c8d;">Total Users</p>
+      </div>
+      <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem;">
+        <i class="fas fa-book" style="font-size: 2.5rem; color: #e74c3c; margin-bottom: 0.5rem;"></i>
+        <h3 style="margin: 0.5rem 0;"><%= stats.total_blogs %></h3>
+        <p style="margin: 0; color: #7f8c8d;">Total Blogs</p>
+      </div>
+      <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem;">
+        <i class="fas fa-check-circle" style="font-size: 2.5rem; color: #f39c12; margin-bottom: 0.5rem;"></i>
+        <h3 style="margin: 0.5rem 0;"><%= stats.published_blogs %></h3>
+        <p style="margin: 0; color: #7f8c8d;">Published</p>
+      </div>
+      <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem;">
+        <i class="fas fa-comments" style="font-size: 2.5rem; color: #9b59b6; margin-bottom: 0.5rem;"></i>
+        <h3 style="margin: 0.5rem 0;"><%= stats.total_comments %></h3>
+        <p style="margin: 0; color: #7f8c8d;">Comments</p>
+      </div>
+      <div class="box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem;">
+        <i class="fas fa-cog" style="font-size: 2.5rem; color: #34495e; margin-bottom: 0.5rem;"></i>
+        <a href="/admin/users" style="text-decoration: none; color: #3498db; font-weight: bold;">Manage System</a>
+      </div>
     </div>    
     
   
     <!-- Stats Section -->
-<div class="stats">
-  <div class="stat page-views">
-    <div class="icon">
-      <i class="fas fa-eye"></i>
+    <div class="stats">
+      <div class="stat page-views">
+        <div class="icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div>
+          <h3><%= stats.total_blogs %></h3>
+          <p>Total blog posts</p>
+        </div>
+      </div>
+      <div class="stat user-registered">
+        <div class="icon">
+          <i class="fas fa-user-check"></i>
+        </div>
+        <div>
+          <h3><%= stats.total_users %></h3>
+          <p>Registered users</p>
+        </div>
+      </div>
+      <div class="stat product-sales">
+        <div class="icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div>
+          <h3><%= stats.published_blogs %></h3>
+          <p>Published blogs</p>
+        </div>
+      </div>
+      <div class="stat transactions">
+        <div class="icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div>
+          <h3><%= stats.total_comments %></h3>
+          <p>User comments</p>
+        </div>
+      </div>
     </div>
-    <div>
-      <h3>5,154</h3>
-      <p>Page views</p>
-    </div>
-  </div>
-  <div class="stat user-registered">
-    <div class="icon">
-      <i class="fas fa-user"></i>
-    </div>
-    <div>
-      <h3>245</h3>
-      <p>User registered</p>
-    </div>
-  </div>
-  <div class="stat product-sales">
-    <div class="icon">
-      <i class="fas fa-shopping-cart"></i>
-    </div>
-    <div>
-      <h3>5,154</h3>
-      <p>Product sales</p>
-    </div>
-  </div>
-  <div class="stat transactions">
-    <div class="icon">
-      <i class="fas fa-sync-alt"></i>
-    </div>
-    <div>
-      <h3>5,154</h3>
-      <p>Transactions</p>
-    </div>
-  </div>
-</div>
-<div class="lastchart">
-  <h3>Chart Title</h3>
-  <p>Graph placeholder</p>
-  <div>
-    <canvas id="myChart3"></canvas>
-  </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <script>
-    const ctx3 = document.getElementById('myChart3').getContext('2d');
 
-    new Chart(ctx3, {
-      type: 'line',
-      data: {
-        labels: ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"],
-        datasets: [
-          {
-            label: "Lost",
-            lineTension: 0.2,
-            borderColor: '#d9534f',
-            borderWidth: 1.5,
-            showLine: true,
-            data: [3, 30, 16, 30, 16, 36, 21, 40],
-            backgroundColor: 'transparent',
-          },
-          {
-            label: "Lost",
-            lineTension: 0.2,
-            borderColor: '#5cb85c',
-            borderWidth: 1.5,
-            data: [6, 20, 5, 20, 5, 25, 9, 18],
-            backgroundColor: 'transparent',
-          },
-          {
-            label: "Lost",
-            lineTension: 0.2,
-            borderColor: '#f0ad4e',
-            borderWidth: 1.5,
-            data: [12, 20, 15, 20, 5, 35, 10, 15],
-            backgroundColor: 'transparent',
-          },
-          {
-            label: "Lost",
-            lineTension: 0.2,
-            borderColor: '#337ab7',
-            borderWidth: 1.5,
-            data: [16, 25, 10, 25, 10, 30, 14, 23],
-            backgroundColor: 'transparent',
-          }
-        ]
-      },
-      options: {
-        responsive: true, // Ensures chart resizes with container
-        maintainAspectRatio: false, // Disables fixed aspect ratio
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-            },
-            ticks: {
-              stepSize: 12,
-            },
-          },
-          x: {
-            grid: {
-              display: false,
-            },
-          },
-        },
-      },
-    });
-  </script>
-</div>
-</div>
+    <div class="lastchart">
+      <h3>User Engagement Trends</h3>
+      <p>Track platform activity over time</p>
+      <div>
+        <canvas id="myChart3"></canvas>
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+        const ctx3 = document.getElementById('myChart3').getContext('2d');
 
+        new Chart(ctx3, {
+          type: 'line',
+          data: {
+            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8"],
+            datasets: [
+              {
+                label: "New Users",
+                lineTension: 0.2,
+                borderColor: '#d9534f',
+                borderWidth: 1.5,
+                showLine: true,
+                data: [3, 8, 12, 18, 22, 28, 32, 40],
+                backgroundColor: 'transparent',
+              },
+              {
+                label: "Active Authors",
+                lineTension: 0.2,
+                borderColor: '#5cb85c',
+                borderWidth: 1.5,
+                data: [2, 4, 6, 8, 10, 14, 18, 22],
+                backgroundColor: 'transparent',
+              },
+              {
+                label: "New Blogs",
+                lineTension: 0.2,
+                borderColor: '#f0ad4e',
+                borderWidth: 1.5,
+                data: [5, 12, 18, 22, 28, 35, 40, 48],
+                backgroundColor: 'transparent',
+              },
+              {
+                label: "Comments",
+                lineTension: 0.2,
+                borderColor: '#337ab7',
+                borderWidth: 1.5,
+                data: [8, 15, 20, 28, 35, 42, 50, 60],
+                backgroundColor: 'transparent',
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                grid: {
+                  drawBorder: false,
+                },
+                ticks: {
+                  stepSize: 12,
+                },
+              },
+              x: {
+                grid: {
+                  display: false,
+                },
+              },
+            },
+          },
+        });
+      </script>
+    </div>
   </div>
-  
-  
 </div>
 
 <script src="/js/header.js"></script>
