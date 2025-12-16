@@ -199,6 +199,18 @@
 
     .thumb-img {
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 0;
+    }
+
+    .post-card {
+      overflow: hidden;
+    }
+
+    .thumb {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 16px 16px 0 0;
     }
 
     /* Featured Badge */
@@ -446,10 +458,26 @@
           <% } %>
         </div>
       <% } else { %>
+        <% 
+          // Image URLs based on category
+          const categoryImages = {
+            'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
+            'travel': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop',
+            'design': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
+            'art': 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop',
+            'lifestyle': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+            'business': 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
+            'food': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=600&fit=crop',
+            'education': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop'
+          };
+        %>
         <% blogs.slice(0, 6).forEach((blog, index) => { %>
           <article class="post-card animate-in delay-<%= (index % 4) + 1 %>">
             <a class="thumb" href="/blog/<%= blog.slug %>">
-              <div class="thumb-img <%= index % 2 === 0 ? '' : 'alt' %>" aria-hidden="true"></div>
+              <img src="<%= categoryImages[blog.category.toLowerCase()] || categoryImages['technology'] %>" 
+                   alt="<%= blog.title %>" 
+                   class="thumb-img"
+                   style="width: 100%; height: 200px; object-fit: cover; display: block;" />
               <div class="chip-row">
                 <span class="chip"><%= blog.category %></span>
                 <% if (blog.tags && blog.tags.split(',')[0]) { %>
@@ -509,9 +537,9 @@
           <i class="uil uil-globe"></i> Worldwide Community
         </p>
         <div class="about-social">
-          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://x.com/Jos_Ak001" title="Twitter"><i class="fab fa-twitter"></i></a>
           <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.linkedin.com/in/akinremi-joshua/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
           <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
         </div>
       </section>
@@ -521,10 +549,23 @@
           <h4 class="aside-title">Most Popular</h4>
           <% 
             const sortedByLikes = [...blogs].sort((a, b) => (b.like_count || 0) - (a.like_count || 0)).slice(0, 3);
+            const miniImages = {
+              'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=150&fit=crop',
+              'travel': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=200&h=150&fit=crop',
+              'design': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=200&h=150&fit=crop',
+              'art': 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=200&h=150&fit=crop',
+              'lifestyle': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&h=150&fit=crop',
+              'business': 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=200&h=150&fit=crop',
+              'food': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=150&fit=crop',
+              'education': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&h=150&fit=crop'
+            };
             sortedByLikes.forEach((blog, index) => { 
           %>
             <a class="featured-item" href="/blog/<%= blog.slug %>">
-              <div class="mini-thumb <%= index % 2 === 0 ? '' : 'alt' %>"></div>
+              <img src="<%= miniImages[blog.category.toLowerCase()] || miniImages['technology'] %>" 
+                   alt="<%= blog.title %>"
+                   class="mini-thumb"
+                   style="width: 64px; height: 48px; object-fit: cover; border-radius: 10px;" />
               <div>
                 <p class="mini-kicker"><%= blog.category %></p>
                 <p class="mini-title"><%= blog.title.substring(0, 40) %><%= blog.title.length > 40 ? '...' : '' %></p>

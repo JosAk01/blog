@@ -1,39 +1,42 @@
-<link rel="stylesheet" href="/css/styles.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet">
+<%- include('partials/header'); -%>
+
 <style>
-  .blog-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  /* Modern Sidebar Styles */
+  .sidebar {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    height: calc(100vh - 90px);
+    width: 280px;
     background: #ffffff;
-    border-bottom: 1px solid #e9eaf3;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-right: 1px solid #e9eaf3;
+    overflow-y: auto;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+    z-index: 100;
   }
 
-  .blog-header .header-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    gap: 20px;
+  .sidebar::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .blog-brand {
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #d0d5dd;
+    border-radius: 10px;
+  }
+
+  .sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid #f0f1f5;
+    background: linear-gradient(135deg, #f8f9fc 0%, #ffffff 100%);
+  }
+
+  .sidebar-user {
     display: flex;
     align-items: center;
     gap: 12px;
-    text-decoration: none;
-    transition: transform 0.2s;
   }
 
-  .blog-brand:hover {
-    transform: translateY(-2px);
-  }
-
-  .blog-logo {
+  .sidebar-avatar {
     width: 48px;
     height: 48px;
     border-radius: 12px;
@@ -43,536 +46,653 @@
     color: white;
     font-weight: 800;
     font-size: 20px;
-    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.3);
+    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.25);
   }
 
-  .blog-brand-text {
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    background: linear-gradient(135deg, #5a5df5, #9a6bff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .blog-nav {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    flex: 1;
-    justify-content: center;
-  }
-
-  .blog-nav a {
-    text-decoration: none;
-    color: #5c6074;
-    font-weight: 600;
+  .sidebar-user-info h5 {
     font-size: 15px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s;
+    font-weight: 700;
+    color: #0b1020;
+    margin: 0;
+  }
+
+  .sidebar-user-role {
+    font-size: 12px;
+    color: #5c6074;
+    margin: 4px 0 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-search {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f1f5;
+  }
+
+  .sidebar-search-wrapper {
     position: relative;
   }
 
-  .blog-nav a:hover {
-    color: #5a5df5;
-    background: #eef0ff;
+  .sidebar-search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid #e9eaf3;
+    border-radius: 10px;
+    background: #f8f9fc;
+    font-size: 14px;
   }
 
-  .blog-nav a.active {
-    color: #5a5df5;
-    background: #eef0ff;
-  }
-
-  .blog-nav a.active::after {
-    content: '';
+  .sidebar-search-icon {
     position: absolute;
-    bottom: 0;
-    left: 16px;
-    right: 16px;
-    height: 2px;
-    background: linear-gradient(90deg, #5a5df5, #9a6bff);
-    border-radius: 2px;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #98a2b3;
   }
 
-  .header-actions {
+  .sidebar-nav {
+    padding: 12px 0;
+  }
+
+  .sidebar-nav-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #98a2b3;
+    padding: 12px 20px 8px;
+  }
+
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-nav a {
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 12px 20px;
+    color: #5c6074;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
   }
 
-  .user-menu {
+  .sidebar-nav a:hover {
+    background: #f8f9fc;
+    color: #5a5df5;
+  }
+
+  .sidebar-nav a.active {
+    background: linear-gradient(90deg, #eef0ff 0%, transparent 100%);
+    color: #5a5df5;
+    border-left: 3px solid #5a5df5;
+  }
+
+  .sidebar-nav a i {
+    font-size: 18px;
+    width: 24px;
+  }
+
+  /* Main Content */
+  .main-content {
+    margin-left: 280px;
+    padding: 30px;
+    min-height: calc(100vh - 90px);
+    background: #f8f9fc;
+  }
+
+  .page-header {
+    margin-bottom: 30px;
+  }
+
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0b1020;
+    margin-bottom: 8px;
+  }
+
+  .page-header p {
+    color: #5c6074;
+    font-size: 15px;
+  }
+
+  /* Filter Bar */
+  .filter-bar {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-group {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    background: #f7f7fb;
-    border-radius: 12px;
-    border: 1px solid #e9eaf3;
+    gap: 8px;
   }
 
-  .user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #5a5df5, #9a6bff);
-    display: grid;
-    place-items: center;
-    color: white;
-    font-weight: 700;
+  .filter-group label {
     font-size: 14px;
+    font-weight: 600;
+    color: #5c6074;
   }
 
-  .user-name {
+  .filter-select {
+    padding: 8px 16px;
+    border: 1px solid #e9eaf3;
+    border-radius: 8px;
+    background: #f8f9fc;
+    font-size: 14px;
     font-weight: 600;
     color: #0b1020;
-    font-size: 14px;
-  }
-
-  .header-btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.3s;
-    border: none;
     cursor: pointer;
   }
 
-  .btn-login {
-    background: transparent;
-    color: #5a5df5;
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .filter-tab {
+    padding: 8px 16px;
     border: 1px solid #e9eaf3;
+    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #5c6074;
+    cursor: pointer;
+    transition: all 0.3s;
   }
 
-  .btn-login:hover {
-    background: #eef0ff;
-    border-color: #5a5df5;
+  .filter-tab:hover {
+    background: #f8f9fc;
   }
 
-  .btn-signup {
+  .filter-tab.active {
     background: linear-gradient(135deg, #5a5df5, #9a6bff);
     color: white;
-    box-shadow: 0 4px 12px rgba(90, 93, 245, 0.3);
+    border-color: transparent;
   }
 
-  .btn-signup:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(90, 93, 245, 0.4);
+  /* Blog Grid */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
   }
 
-  .btn-logout {
-    background: #f7f7fb;
-    color: #5c6074;
-    border: 1px solid #e9eaf3;
-  }
-
-  .btn-logout:hover {
-    background: #ffe1e1;
-    color: #e74c3c;
-    border-color: #e74c3c;
-  }
-
-  .mobile-menu-btn {
-    display: none;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #e9eaf3;
-    background: transparent;
-    border-radius: 10px;
+  .blog-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    flex-direction: column;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .blog-card-image {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blog-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #5a5df5;
+    z-index: 2;
+  }
+
+  .blog-card-content {
+    padding: 20px;
+  }
+
+  .blog-card-meta {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 5px;
+    gap: 8px;
+    font-size: 13px;
+    color: #5c6074;
+    margin-bottom: 12px;
   }
 
-  .mobile-menu-btn span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: #0b1020;
-    border-radius: 2px;
-    transition: all 0.3s;
+  .blog-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0b1020;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .mobile-menu-btn.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  .blog-card-excerpt {
+    font-size: 14px;
+    color: #5c6074;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 16px;
   }
 
-  .mobile-menu-btn.active span:nth-child(2) {
-    opacity: 0;
+  .blog-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #f0f1f5;
   }
 
-  .mobile-menu-btn.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+  .blog-card-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: #5c6074;
+  }
+
+  .blog-card-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .blog-card-stat i {
+    color: #e74c3c;
+  }
+
+  .blog-card-stat.comments i {
+    color: #3498db;
+  }
+
+  .blog-card-cta {
+    color: #5a5df5;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 16px;
+    grid-column: 1 / -1;
+  }
+
+  .empty-state-icon {
+    font-size: 64px;
+    color: #e9eaf3;
+    margin-bottom: 20px;
+  }
+
+  .empty-state h3 {
+    font-size: 24px;
+    color: #0b1020;
+    margin-bottom: 8px;
+  }
+
+  .empty-state p {
+    color: #5c6074;
+    font-size: 15px;
   }
 
   /* Responsive */
   @media (max-width: 968px) {
-    .blog-nav {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      flex-direction: column;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      display: none;
-      gap: 8px;
+    .sidebar {
+      transform: translateX(-100%);
+      z-index: 1000;
     }
 
-    .blog-nav.active {
-      display: flex;
+    .sidebar.active {
+      transform: translateX(0);
     }
 
-    .blog-nav a {
-      width: 100%;
-      text-align: center;
-      padding: 12px;
-    }
-
-    .mobile-menu-btn {
-      display: flex;
-    }
-
-    .header-actions {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      flex-direction: column;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      display: none;
-      margin-top: 1px;
-    }
-
-    .header-actions.active {
-      display: flex;
-    }
-
-    .user-menu {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .header-btn {
-      width: 100%;
-      text-align: center;
+    .main-content {
+      margin-left: 0;
     }
   }
 
   @media (max-width: 640px) {
-    .blog-header .header-container {
-      padding: 12px 16px;
+    .main-content {
+      padding: 20px 16px;
     }
 
-    .blog-brand-text {
-      display: none;
+    .filter-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .filter-tabs {
+      flex-direction: column;
     }
   }
 </style>
-<header class="blog-header">
-  <div class="header-container">
-    <!-- Brand -->
-    <a href="/" class="blog-brand">
-      <div class="blog-logo">B</div>
-      <span class="blog-brand-text">BlogHub</span>
-    </a>
 
-    <!-- Navigation -->
-    <nav class="blog-nav" id="blogNav">
-      <a href="/" class="<%= typeof currentPage !== 'undefined' && currentPage === 'home' ? 'active' : '' %>">Home</a>
-      <% if (session.user) { %>
-        <% if (session.user.role === 'admin') { %>
-          <a href="/admin" class="<%= typeof currentPage !== 'undefined' && currentPage === 'admin' ? 'active' : '' %>">Dashboard</a>
-        <% } else if (session.user.role === 'author') { %>
-          <a href="/author" class="<%= typeof currentPage !== 'undefined' && currentPage === 'author' ? 'active' : '' %>">My Posts</a>
-        <% } else { %>
-          <a href="/user" class="<%= typeof currentPage !== 'undefined' && currentPage === 'user' ? 'active' : '' %>">Explore</a>
-        <% } %>
-      <% } %>
-      <a href="/#featured">Featured</a>
-      <a href="/#categories">Categories</a>
-    </nav>
-
-    <!-- Actions -->
-    <div class="header-actions" id="headerActions">
-      <% if (session.user) { %>
-        <div class="user-menu">
-          <div class="user-avatar"><%= session.user.name.charAt(0).toUpperCase() %></div>
-          <span class="user-name"><%= session.user.name %></span>
-        </div>
-        <a href="/logout" class="header-btn btn-logout">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-      <% } else { %>
-        <a href="/login" class="header-btn btn-login">Login</a>
-        <a href="/signup" class="header-btn btn-signup">Get Started</a>
-      <% } %>
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" id="mobileMenuBtn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-</header>
-
-<script>
-  // Mobile menu toggle
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const blogNav = document.getElementById('blogNav');
-  const headerActions = document.getElementById('headerActions');
-
-  if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenuBtn.classList.toggle('active');
-      blogNav.classList.toggle('active');
-      headerActions.classList.toggle('active');
-    });
-  }
-
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.blog-header')) {
-      mobileMenuBtn?.classList.remove('active');
-      blogNav?.classList.remove('active');
-      headerActions?.classList.remove('active');
-    }
-  });
-</script>
 <div class="content-wrapper">
-  <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left" id="show-side-navigation1">
-    <!-- <i class="uil-bars close-aside d-md-none d-lg-none" data-close="show-side-navigation1"></i> -->
-    <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
-      <div class="ms-2">
-        <h5 class="fs-6 mb-0">
-          <a class="text-decoration-none" href="#"><%= session.user.name %></a>
-        </h5>
-        <p class="mt-1 mb-0">Lorem ipsum dolor sit amet consectetur.</p>
+  <aside class="sidebar" id="userSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">
+          <%= session.user.name.charAt(0).toUpperCase() %>
+        </div>
+        <div class="sidebar-user-info">
+          <h5><%= session.user.name %></h5>
+          <p class="sidebar-user-role">Reader</p>
+        </div>
       </div>
     </div>
-    <hr>
-    <br>
-    <div class="search position-relative text-center px-4 py-3 mt-2">
-      <input type="text" class="form-control w-100 border-0 bg-transparent" placeholder="Search here">
+
+    <div class="sidebar-search">
+      <div class="sidebar-search-wrapper">
+        <i class="fas fa-search sidebar-search-icon"></i>
+        <input type="text" class="sidebar-search-input" placeholder="Search blogs..." id="searchBlogs" />
+      </div>
     </div>
-    <br>
-    <ul class="categories list-unstyled">
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-calendar-alt"></i> Calendar</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-envelope-download fa-fw"></i> Mailbox</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-shopping-cart-alt"></i> Ecommerce</a>
-      </li>
-      <li class="has-dropdown">
-       <a href="#"><i class="uil-bag"></i> Projects</a>
-      </li>
-      <li>
-        <a href="/user/settings"><i class="uil-setting"></i> Settings</a>
-      </li>
-      <li class="has-dropdown">
-        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      </li>
-    </ul>
+
+    <nav class="sidebar-nav">
+      <div>
+        <h6 class="sidebar-nav-title">Browse</h6>
+        <ul>
+          <li>
+            <a href="/user" class="active">
+              <i class="uil uil-book-open"></i>
+              <span>All Blogs</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-filter="liked">
+              <i class="fas fa-heart"></i>
+              <span>Liked Posts</span>
+            </a>
+          </li>
+          <li>
+            <a href="/calendar">
+              <i class="uil uil-calendar-alt"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="sidebar-nav-title">Categories</h6>
+        <ul>
+          <li>
+            <a href="#" data-category="all">
+              <i class="uil uil-apps"></i>
+              <span>All Categories</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-category="technology">
+              <i class="uil uil-laptop"></i>
+              <span>Technology</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-category="travel">
+              <i class="uil uil-plane"></i>
+              <span>Travel</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-category="design">
+              <i class="uil uil-pen"></i>
+              <span>Design</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-category="lifestyle">
+              <i class="uil uil-heart"></i>
+              <span>Lifestyle</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="sidebar-nav-title">Account</h6>
+        <ul>
+          <li>
+            <a href="/user/settings">
+              <i class="uil uil-setting"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout" style="color: #e74c3c;">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </aside>
 
   <div class="main-content">
-     <!-- <header class="posts-header">
-        <h1>Posts</h1>
-        <div class="filters">
-          <nav class="status-tabs">
-            <a href="#" class="active">ALL</a>
-            <a href="#">DRAFTS</a>
-            <a href="#">PUBLISHED</a>
-          </nav>
-          <div class="sort">
-            <label>SORT BY</label>
-            <select>
-              <option value="tags">TAGS</option>
-              <option value="date">DATE</option>
-            </select>
+    <div class="page-header">
+      <h1>Discover Stories</h1>
+      <p>Explore curated content from our community of writers</p>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All Posts</button>
+        <button class="filter-tab" data-filter="popular">Popular</button>
+        <button class="filter-tab" data-filter="recent">Recent</button>
+      </div>
+      <div class="filter-group">
+        <label>Sort:</label>
+        <select class="filter-select" id="sortSelect">
+          <option value="recent">Most Recent</option>
+          <option value="popular">Most Popular</option>
+          <option value="likes">Most Liked</option>
+          <option value="comments">Most Commented</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="blog-grid" id="blogGrid">
+      <% if (blogs.length === 0) { %>
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <i class="fas fa-book-open"></i>
           </div>
+          <h3>No stories yet</h3>
+          <p>Check back soon for amazing content from our writers!</p>
         </div>
-      </header> -->
-
-      <section class="category">
-        <h2>Travels</h2>
-        <div class="post-grid">
-          <% blogs.forEach(blog => { %>
-            <article class="post-card" onclick="window.location.href='/blog/<%= blog.slug %>'">
-              <h3><%= blog.title %></h3>
-              <p><%= blog.content %></p>
-              <div class="card-footer">
-                <span class="tag"><%= blog.category %></span>
-                <span class="date"><%= new Date(blog.created_at).toDateString() %></span>
-              </div>            
-            </article>
-          <% }); %>
-        </div>
-      </section>
-      
-      <!-- <section class="category">
-        <h2>Travels</h2>
-        <div class="post-grid">
-          <article class="post-card" onclick="window.location.href='/blog-detail'">
-            <h3>A Guide To Mri Scans</h3>
-            <p>Do you want to download free song for ipod? If so, reading this article could save you from...</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>            
-          </article> -->
-
-          <!-- <article class="post-card">
-            <h3>What Is Hdcp</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
+      <% } else { %>
+        <% 
+          const categoryImages = {
+            'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
+            'travel': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop',
+            'design': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
+            'art': 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop',
+            'lifestyle': 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=600&fit=crop',
+            'business': 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
+            'food': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=600&fit=crop',
+            'education': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop'
+          };
+        %>
+        <% blogs.forEach((blog, index) => { %>
+          <article class="blog-card" onclick="window.location.href='/blog/<%= blog.slug %>'" data-category="<%= blog.category %>" data-likes="<%= blog.like_count %>" data-comments="<%= blog.comment_count %>" data-date="<%= blog.created_at %>">
+            <img src="<%= categoryImages[blog.category.toLowerCase()] || categoryImages['technology'] %>" 
+                 alt="<%= blog.title %>" 
+                 class="blog-card-image"
+                 style="width: 100%; height: 200px; object-fit: cover; display: block; position: relative;" />
+            <span class="blog-card-badge" style="position: absolute; top: 12px; left: 12px;"><%= blog.category %></span>
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span><i class="fas fa-user"></i> <%= blog.author_name %></span>
+                <span>•</span>
+                <span><i class="fas fa-clock"></i> <%= new Date(blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+              </div>
+              <h3 class="blog-card-title"><%= blog.title %></h3>
+              <p class="blog-card-excerpt"><%= blog.content.substring(0, 150) %>...</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-stats">
+                  <span class="blog-card-stat">
+                    <i class="fas fa-heart"></i>
+                    <%= blog.like_count || 0 %>
+                  </span>
+                  <span class="blog-card-stat comments">
+                    <i class="fas fa-comment"></i>
+                    <%= blog.comment_count || 0 %>
+                  </span>
+                </div>
+                <span class="blog-card-cta">
+                  Read More <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
             </div>
           </article>
+        <% }); %>
+      <% } %>
+    </div>
+  </div>
+</div>
 
-          <article class="post-card">
-            <h3>Sony Laptops Are Still Part Of The Sony Family</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-        </div>
-      </section>
+<script>
+  // Filter functionality
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  const sortSelect = document.getElementById('sortSelect');
+  const blogGrid = document.getElementById('blogGrid');
+  const searchInput = document.getElementById('searchBlogs');
+  const categoryLinks = document.querySelectorAll('[data-category]');
 
-      <section class="category">
-        <h2>Design</h2>
-        <div class="post-grid">
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
+  let currentFilter = 'all';
+  let currentCategory = 'all';
 
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
+  // Tab filtering
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilter = tab.dataset.filter;
+      applyFilters();
+    });
+  });
 
-          <article class="post-card">
-            <h3>How Does An Lcd Screen Work</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
+  // Category filtering
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentCategory = link.dataset.category;
+      applyFilters();
+    });
+  });
 
-          <article class="post-card">
-            <h3>Cleaning And Organizing Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
+  // Sort functionality
+  sortSelect.addEventListener('change', (e) => {
+    const sortType = e.target.value;
+    sortBlogs(sortType);
+  });
 
-          <article class="post-card">
-            <h3>Choosing The Best Audio Player Software For Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Make Myspace Your Best Designed Space</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="category">
-        <h2>Arts</h2>
-        <div class="post-grid">
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Compatible Inkjet Cartridge Which One Will You Choose</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>How Does An Lcd Screen Work</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Cleaning And Organizing Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Choosing The Best Audio Player Software For Your Computer</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article>
-
-          <article class="post-card">
-            <h3>Make Myspace Your Best Designed Space</h3>
-            <p>Every avid independent filmmaker has dreamed about making that special interest</p>
-            <div class="card-footer">
-              <span class="tag">UX</span>
-              <span class="date">21 Oct 2018</span>
-            </div>
-          </article> -->
-        </div>
-      </section>
+  // Search functionality
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const cards = blogGrid.querySelectorAll('.blog-card');
     
-</div>
-</div>
-</div>
+    cards.forEach(card => {
+      const title = card.querySelector('.blog-card-title').textContent.toLowerCase();
+      const excerpt = card.querySelector('.blog-card-excerpt').textContent.toLowerCase();
+      
+      if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  function applyFilters() {
+    const cards = Array.from(blogGrid.querySelectorAll('.blog-card'));
+    
+    cards.forEach(card => {
+      let showCard = true;
+
+      // Category filter
+      if (currentCategory !== 'all') {
+        showCard = card.dataset.category.toLowerCase() === currentCategory;
+      }
+
+      // Filter tabs
+      if (currentFilter === 'popular' && showCard) {
+        const totalEngagement = parseInt(card.dataset.likes) + parseInt(card.dataset.comments);
+        showCard = totalEngagement > 5;
+      } else if (currentFilter === 'recent' && showCard) {
+        const date = new Date(card.dataset.date);
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        showCard = date > weekAgo;
+      }
+
+      card.style.display = showCard ? 'block' : 'none';
+    });
+  }
+
+  function sortBlogs(sortType) {
+    const cards = Array.from(blogGrid.querySelectorAll('.blog-card'));
+    
+    cards.sort((a, b) => {
+      switch(sortType) {
+        case 'popular':
+          const engagementA = parseInt(a.dataset.likes) + parseInt(a.dataset.comments);
+          const engagementB = parseInt(b.dataset.likes) + parseInt(b.dataset.comments);
+          return engagementB - engagementA;
+        
+        case 'likes':
+          return parseInt(b.dataset.likes) - parseInt(a.dataset.likes);
+        
+        case 'comments':
+          return parseInt(b.dataset.comments) - parseInt(a.dataset.comments);
+        
+        case 'recent':
+        default:
+          return new Date(b.dataset.date) - new Date(a.dataset.date);
+      }
+    });
+
+    cards.forEach(card => blogGrid.appendChild(card));
+  }
+
+  // Mobile sidebar toggle
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const userSidebar = document.getElementById('userSidebar');
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      userSidebar.classList.toggle('active');
+    });
+  }
+</script>

@@ -43,6 +43,11 @@ router.get('/signup', (req, res) => {
   res.render('signup', { error: null });
 });
 
+// About Page
+router.get('/about', (req, res) => {
+  res.render('about', { session: req.session });
+});
+
 // Signup Logic
 router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
@@ -320,6 +325,11 @@ router.get('/user', isAuthenticated, authorize('user'), async (req, res) => {
     console.error('Error loading blogs:', err);
     res.status(500).send('Error loading blogs');
   }
+});
+
+// Calendar Page (all roles)
+router.get('/calendar', isAuthenticated, (req, res) => {
+  res.render('calendar', { session: req.session });
 });
 
 // ====================== BLOG DETAIL & INTERACTIONS ======================

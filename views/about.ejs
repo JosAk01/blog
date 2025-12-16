@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - BlogHub</title>
+  <meta name="description" content="Learn about BlogHub - Where stories come alive and communities thrive." />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    /* Animated Hero */
+    .about-hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(90, 93, 245, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(154, 107, 255, 0.15) 0%, transparent 50%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(90, 93, 245, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(90, 93, 245, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: #ffffff;
+      animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #5a5df5, #9a6bff, #ff6b9d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+
+    .hero-content p {
+      font-size: clamp(18px, 3vw, 22px);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease-out 0.4s backwards;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease-out 0.6s backwards;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .hero-stat-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Mission Section */
+    .mission-section {
+      padding: 120px 24px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fc 100%);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .mission-image-wrapper {
+      position: relative;
+    }
+
+    .mission-image {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+      transform: rotate(-2deg);
+      transition: transform 0.5s ease;
+    }
+
+    .mission-image:hover {
+      transform: rotate(0deg);
+    }
+
+    .mission-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mission-image-accent {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      top: -50px;
+      right: -50px;
+      z-index: -1;
+    }
+
+    .mission-content h2 {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: #0a0a0a;
+    }
+
+    .mission-content .highlight {
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .mission-content p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #4a4a4a;
+      margin-bottom: 20px;
+    }
+
+    /* Values Section */
+    .values-section {
+      padding: 120px 24px;
+      background: #ffffff;
+    }
+
+    .section-title-wrapper {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      color: #5a5df5;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+
+    .section-title-wrapper h2 {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 900;
+      color: #0a0a0a;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .value-card {
+      padding: 40px;
+      background: #f8f9fc;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 0;
+    }
+
+    .value-card:hover::before {
+      opacity: 0.05;
+    }
+
+    .value-card:hover {
+      border-color: #5a5df5;
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(90, 93, 245, 0.15);
+    }
+
+    .value-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .value-number {
+      font-size: 48px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+    }
+
+    .value-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0a0a0a;
+      margin-bottom: 12px;
+    }
+
+    .value-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #5a5a5a;
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 120px 24px;
+      background: linear-gradient(180deg, #f8f9fc 0%, #ffffff 100%);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .team-member {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #0a0a0a;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .team-member:hover {
+      transform: scale(1.03);
+    }
+
+    .team-member-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .team-member:hover .team-member-image {
+      transform: scale(1.1);
+    }
+
+    .team-member-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+    }
+
+    .team-member-name {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .team-member-role {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .team-social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .team-social-links a {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      color: #ffffff;
+      transition: all 0.3s;
+    }
+
+    .team-social-links a:hover {
+      background: rgba(90, 93, 245, 0.9);
+      transform: translateY(-2px);
+    }
+
+
+
+        /* CTA Section */
+    .cta-section {
+      background: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-content h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      color: #0b1020;
+      margin-bottom: 20px;
+    }
+
+    .cta-content p {
+      font-size: 18px;
+      color: #5c6074;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-cta {
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #5a5df5, #9a6bff);
+      color: white;
+      box-shadow: 0 8px 24px rgba(90, 93, 245, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(90, 93, 245, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #5a5df5;
+      border: 2px solid #e9eaf3;
+    }
+
+    .btn-secondary:hover {
+      border-color: #5a5df5;
+      background: #eef0ff;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .mission-grid,
+      .values-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 80px 1fr;
+        gap: 24px;
+      }
+
+      .timeline-year {
+        font-size: 32px;
+      }
+
+      .about-hero {
+        min-height: 70vh;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-stats {
+        gap: 32px;
+      }
+
+      .mission-section,
+      .values-section,
+      .team-section,
+      .journey-section,
+      .cta-section {
+        padding: 80px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/header'); -%>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <span class="hero-badge">✨ About BlogHub</span>
+      <h1>
+        Where Stories <span class="hero-gradient-text">Come Alive</span>
+        and Communities Thrive
+      </h1>
+      <p>
+        We're building the world's most empowering platform for writers and readers. 
+        Join thousands of storytellers shaping the future of digital publishing.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">10K+</div>
+          <div class="hero-stat-label">Writers</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">50K+</div>
+          <div class="hero-stat-label">Stories</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">500K+</div>
+          <div class="hero-stat-label">Readers</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-image-wrapper">
+          <div class="mission-image-accent"></div>
+          <div class="mission-image">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=1000&fit=crop" alt="Team collaboration" />
+          </div>
+        </div>
+        <div class="mission-content">
+          <h2>
+            Our Mission is to <span class="highlight">Amplify Every Voice</span>
+          </h2>
+          <p>
+            Founded in 2024, BlogHub emerged from a simple belief: everyone has a story worth sharing. 
+            We're not just another blogging platform—we're a movement dedicated to democratizing publishing 
+            and celebrating diverse perspectives.
+          </p>
+          <p>
+            Today, we're proud to serve a global community of writers and readers who believe in the 
+            transformative power of storytelling. From personal essays to professional insights, every 
+            story on BlogHub contributes to a richer, more connected world.
+          </p>
+          <p>
+            We're constantly innovating, listening to our community, and building features that empower 
+            creators to do their best work. This is just the beginning of our journey.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <div class="section-subtitle">Our Core Values</div>
+        <h2>What Drives Us Forward</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-number">01</div>
+          <h3>Community First</h3>
+          <p>
+            Every decision we make starts with one question: How does this serve our community? 
+            Your voices shape our platform.
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-number">02</div>
+          <h3>Authentic Expression</h3>
+          <p>
+            We celebrate genuine, heartfelt storytelling. No algorithms gaming, no clickbait—just 
+            real stories from real people.
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-number">03</div>
+          <h3>Inclusive Space</h3>
+          <p>
+            BlogHub is for everyone. We're committed to creating a welcoming, respectful environment 
+            where all voices matter.
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-number">04</div>
+          <h3>Continuous Innovation</h3>
+          <p>
+            We never stop improving. From AI-powered tools to new features, we're always pushing 
+            boundaries to serve you better.
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-number">05</div>
+          <h3>Writer Success</h3>
+          <p>
+            Your success is our success. We provide tools, support, and opportunities to help you 
+            grow your audience and craft.
+          </p>
+        </div>
+        <div class="value-card">
+          <div class="value-number">06</div>
+          <h3>Transparency</h3>
+          <p>
+            We believe in open communication. From product decisions to community guidelines, 
+            we keep you informed every step.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <div class="section-subtitle">Meet Our Team</div>
+        <h2>The People Behind BlogHub</h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=800&fit=crop" alt="Founder" class="team-member-image" />
+          <div class="team-member-overlay">
+            <div class="team-member-name">Joshua Akinremi</div>
+            <div class="team-member-role">Founder & CEO</div>
+            <div class="team-social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=800&fit=crop" alt="Head of Content" class="team-member-image" />
+          <div class="team-member-overlay">
+            <div class="team-member-name">Sarah Mitchell</div>
+            <div class="team-member-role">Head of Content</div>
+            <div class="team-social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=800&fit=crop" alt="Lead Developer" class="team-member-image" />
+          <div class="team-member-overlay">
+            <div class="team-member-name">Michael Chen</div>
+            <div class="team-member-role">Lead Developer</div>
+            <div class="team-social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Share Your Story?</h2>
+        <p>
+          Join thousands of writers who are already sharing their voices on BlogHub. 
+          Whether you're a seasoned author or just starting out, there's a place for you here.
+        </p>
+        <div class="cta-buttons">
+          <% if (session.user) { %>
+            <% if (session.user.role === 'author') { %>
+              <a href="/author/create" class="btn-cta btn-primary">
+                <i class="fas fa-pen"></i> Write a Story
+              </a>
+            <% } %>
+            <a href="/<%= session.user.role %>" class="btn-cta btn-secondary">
+              <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+            </a>
+          <% } else { %>
+            <a href="/signup" class="btn-cta btn-primary">
+              <i class="fas fa-rocket"></i> Get Started Free
+            </a>
+            <a href="/" class="btn-cta btn-secondary">
+              <i class="fas fa-book-open"></i> Explore Stories
+            </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/footer'); -%>
+</body>
+</html>
