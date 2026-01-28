@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | BlogHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a1a;
+            --text-primary: #2d2d2d;
+            --text-secondary: #666;
+            --accent: #d4a373;
+            --bg-cream: #faf8f5;
+            --border-light: #e5e5e5;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-cream);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .last-updated {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            padding: 24px;
+            background: white;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+        }
+
+        section {
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.15s; }
+        section:nth-child(4) { animation-delay: 0.2s; }
+        section:nth-child(5) { animation-delay: 0.25s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            margin-right: 16px;
+            vertical-align: middle;
+        }
+
+        p {
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin: 20px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        li::marker {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(212, 163, 115, 0.3) 60%);
+            padding: 0 4px;
+        }
+
+        .contact-box {
+            margin-top: 60px;
+            padding: 32px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .contact-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        .contact-box a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-box a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        .back-link::before {
+            content: '← ';
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h2::before {
+                width: 30px;
+                margin-right: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Last Updated: January 28, 2026</p>
+        </header>
+
+        <div class="intro">
+            Welcome to <strong>BlogHub</strong> ("the Blog"). By accessing or using this Blog, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use the Blog.
+        </div>
+
+        <section>
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing and using this Blog, you accept and agree to be bound by the terms and provision of this agreement. These Terms apply to all visitors, users, and others who access or use the Blog.</p>
+        </section>
+
+        <section>
+            <h2>2. Use License</h2>
+            <p>Permission is granted to temporarily view and read the materials (information or content) on the Blog for personal, non-commercial use only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+            <ul>
+                <li>Modify or copy the materials</li>
+                <li>Use the materials for any commercial purpose or for any public display</li>
+                <li>Attempt to decompile or reverse engineer any software contained on the Blog</li>
+                <li>Remove any copyright or other proprietary notations from the materials</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. User Comments and Content</h2>
+            <p>Parts of this Blog may offer an opportunity for users to post and exchange opinions and information. We do not filter, edit, publish or review comments prior to their presence on the Blog. Comments do not reflect our views and opinions.</p>
+            <p>We reserve the right to monitor all comments and to remove any comments which can be considered inappropriate, offensive, or causes breach of these Terms.</p>
+            <p><strong>You warrant and represent that:</strong></p>
+            <ul>
+                <li>You are entitled to post comments on the Blog and have all necessary licenses and consents to do so</li>
+                <li>The comments do not invade any intellectual property right, including without limitation copyright, patent or trademark of any third party</li>
+                <li>The comments do not contain any defamatory, libelous, offensive, indecent or otherwise unlawful material which is an invasion of privacy</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Intellectual Property Rights</h2>
+            <p>Unless otherwise stated, we own the intellectual property rights for all material on the Blog. All intellectual property rights are reserved. You may access this from the Blog for your own personal use subjected to restrictions set in these Terms.</p>
+        </section>
+
+        <section>
+            <h2>5. Hyperlinking to Our Content</h2>
+            <p>Organizations may link to our Blog without prior written approval if the link is not in any way deceptive, does not falsely imply sponsorship or endorsement, and fits within the context of the linking party's site.</p>
+        </section>
+
+        <section>
+            <h2>6. Disclaimer</h2>
+            <p>The materials on the Blog are provided on an <span class="highlight">'as is' basis</span>. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+            <p>Further, we do not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the Blog or otherwise relating to such materials or on any sites linked to this Blog.</p>
+        </section>
+
+        <section>
+            <h2>7. Limitations</h2>
+            <p>In no event shall we or our suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on the Blog.</p>
+        </section>
+
+        <section>
+            <h2>8. Accuracy of Materials</h2>
+            <p>The materials appearing on the Blog could include technical, typographical, or photographic errors. We do not warrant that any of the materials on the Blog are accurate, complete or current. We may make changes to the materials contained on the Blog at any time without notice.</p>
+        </section>
+
+        <section>
+            <h2>9. Links</h2>
+            <p>We have not reviewed all of the sites linked to the Blog and are not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by us of the site. Use of any such linked website is at the user's own risk.</p>
+        </section>
+
+        <section>
+            <h2>10. Modifications</h2>
+            <p>We may revise these Terms at any time without notice. By using this Blog you are agreeing to be bound by the then current version of these Terms.</p>
+        </section>
+
+        <section>
+            <h2>11. Governing Law</h2>
+            <p>These Terms shall be governed and construed in accordance with the laws of <strong>[Nigeria/Lagos]</strong>, without regard to its conflict of law provisions.</p>
+        </section>
+
+        <div class="contact-box">
+            <h3>Questions?</h3>
+            <p>If you have any questions about these Terms, please contact us at <a href="mailto:contact@bloghub.com">contact@bloghub.com</a></p>
+        </div>
+
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>

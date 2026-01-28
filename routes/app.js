@@ -48,6 +48,11 @@ router.get('/about', (req, res) => {
   res.render('about', { session: req.session });
 });
 
+// Terms of Service Page
+router.get('/terms', (req, res) => {
+  res.render('terms', { session: req.session });
+});
+
 // Signup Logic
 router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
