@@ -53,6 +53,11 @@ router.get('/terms', (req, res) => {
   res.render('terms', { session: req.session });
 });
 
+// Privacy Policy Page
+router.get('/privacy', (req, res) => {
+  res.render('privacy', { session: req.session });
+});
+
 // Signup Logic
 router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
