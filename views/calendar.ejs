@@ -503,29 +503,37 @@
   }
 
   function renderEvents() {
-    const eventsList = document.getElementById('eventsList');
-    const now = new Date();
-    const upcomingEvents = events.filter(e => new Date(e.date) >= now)
-                                 .sort((a, b) => new Date(a.date) - new Date(b.date))
-                                 .slice(0, 5);
-    
-    if (upcomingEvents.length === 0) {
-      eventsList.innerHTML = '<p style="color: #5c6074; text-align: center; padding: 20px;">No upcoming events</p>';
-      return;
-    }
-    
-    eventsList.innerHTML = upcomingEvents.map(event => `
-      <div class="event-item">
-        <h3>${event.title}</h3>
-        <p>${event.description || 'No description'}</p>
-        <p class="event-time">
-          <i class="fas fa-calendar"></i> ${new Date(event.date).toLocaleDateString('en-US', { 
-            month: 'short', day: 'numeric', year: 'numeric' 
-          })}
-          <i class="fas fa-clock" style="margin-left: 12px;"></i> ${event.time}
-        </p>
-      </div>
-    `).join('');
+  const eventsList = document.getElementById('eventsList');
+  const now = new Date();
+  // Set time to start of today for proper comparison
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  const upcomingEvents = events.filter(e => {
+    const eventDate = new Date(e.date);
+    // Compare just the dates, not the times
+    return eventDate >= today;
+  })
+  .sort((a, b) => new Date(a.date) - new Date(b.date))
+  .slice(0, 5);
+  
+  if (upcomingEvents.length === 0) {
+    eventsList.innerHTML = '<p style="color: #5c6074; text-align: center; padding: 20px;">No upcoming events</p>';
+    return;
+  }
+  
+  eventsList.innerHTML = upcomingEvents.map(event => `
+    <div class="event-item">
+      <h3>${event.title}</h3>
+      <p>${event.description || 'No description'}</p>
+      <p class="event-time">
+        <i class="fas fa-calendar"></i> ${new Date(event.date).toLocaleDateString('en-US', { 
+          month: 'short', day: 'numeric', year: 'numeric' 
+        })}
+        <i class="fas fa-clock" style="margin-left: 12px;"></i> ${event.time}
+      </p>
+    </div>
+  `).join('');
+  
   }
 
   function showDayEvents(date) {
